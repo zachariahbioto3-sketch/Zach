@@ -3,493 +3,699 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>VoltX — Electronics Store</title>
+  <title>VoltX — Creative Online Shop</title>
+  
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            accent: '#00d4ff',
-            dark: '#080c10',
-            card: '#0f1419',
-            surface: '#0d1117',
+            brand: {
+              blue: '#2563eb',     // Technova brand royal blue
+              blueLight: '#eff6ff', // Extremely light blue highlight
+              accent: '#3b82f6',   // High-fidelity active elements
+              bg: '#f3f7fa',       // Soft off-white / light blue page background
+              textDark: '#0f172a', // Sophisticated dark slate text
+              textMuted: '#64748b' // Cool gray secondary text
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+          },
+          boxShadow: {
+            'premium': '0 10px 30px rgba(15, 23, 42, 0.03)',
+            'premium-hover': '0 20px 40px rgba(15, 23, 42, 0.06)',
+            'soft-blue': '0 10px 40px rgba(37, 99, 235, 0.1)'
           }
         }
       }
     }
   </script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
   <style>
-    body { font-family: 'Inter', sans-serif; }
-    .glow { box-shadow: 0 0 30px rgba(0,212,255,0.15); }
-    .product-card:hover .cart-slide { transform: translateY(0); }
-    .cart-slide { transform: translateY(100%); transition: transform 0.3s; }
-    .tech-border { border: 1px solid rgba(0,212,255,0.15); }
+    body {
+      background-color: #f3f7fa;
+      font-family: 'Inter', sans-serif;
+    }
+    
+    /* Smooth transition for active tab indicators and hover cards */
+    .transition-all-300 {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    
+    /* Product card image containment */
+    .product-img-container {
+      background-color: #f8fafc;
+      mix-blend-mode: multiply;
+    }
+    
+    /* Custom hidden scrollbar utility */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
   </style>
 </head>
-<body class="bg-dark text-white">
+<body class="text-brand-textDark antialiased relative">
 
-  <!-- PROMO BAR -->
-  <div class="bg-accent text-black text-center text-xs font-bold py-2 tracking-wide">
-    ⚡ MEGA SALE — Up to 35% OFF on all laptops & smartphones this week only!
+  <!-- TOP UTILITY GLOBAL BAR -->
+  <div class="bg-[#fafbfd] border-b border-slate-100 py-2.5 px-6 lg:px-16 flex justify-between items-center text-xs text-brand-textMuted font-medium">
+    <div class="flex items-center gap-2">
+      <span>✉️ Welcome to VoltX Global Store!</span>
+    </div>
+    <div class="flex items-center gap-6">
+      <a href="#" class="hover:text-brand-blue transition">📍 Track Your Order</a>
+      <span class="text-slate-200">|</span>
+      <a href="#" class="hover:text-brand-blue transition">🚚 Free Shipping & Returns</a>
+      <span class="text-slate-200">|</span>
+      <div class="flex items-center gap-1 cursor-pointer hover:text-brand-blue transition">
+        <span>🇺🇸 EN-US</span>
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path></svg>
+      </div>
+    </div>
   </div>
 
   <!-- NAVBAR -->
-  <nav class="sticky top-0 z-50 bg-dark/95 backdrop-blur border-b border-white/5 px-4 lg:px-16 py-4">
-    <div class="flex justify-between items-center">
-      <div class="text-2xl font-black tracking-tight">Volt<span class="text-accent">X</span></div>
-      <div class="hidden lg:flex gap-8 text-sm text-white/50">
-        <a href="#" class="hover:text-accent transition">Home</a>
-        <a href="#products" class="hover:text-accent transition">Products</a>
-        <a href="#" class="hover:text-accent transition">Brands</a>
-        <a href="#" class="hover:text-accent transition">Deals</a>
-        <a href="#" class="hover:text-accent transition">Support</a>
+  <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md border-b border-slate-100 px-6 lg:px-16 py-4 flex justify-between items-center transition-all">
+    <!-- Brand Logo -->
+    <a href="#" class="flex items-center gap-2">
+      <div class="w-9 h-9 bg-brand-blue text-white rounded-lg flex items-center justify-center font-black text-xl shadow-md shadow-blue-500/20">V</div>
+      <span class="font-extrabold text-2xl tracking-tight text-brand-textDark">Volt<span class="text-brand-blue">X</span></span>
+    </a>
+
+    <!-- Center Navigation Links -->
+    <div class="hidden lg:flex items-center gap-8 text-[15px] font-semibold text-slate-700">
+      <a href="#" class="text-brand-blue hover:text-brand-blue transition flex items-center gap-1">
+        Home
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+      </a>
+      <a href="#products" class="hover:text-brand-blue transition flex items-center gap-1">
+        Shop
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+      </a>
+      <a href="#about" class="hover:text-brand-blue transition flex items-center gap-1">
+        Blog
+        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+      </a>
+      <a href="#footer" class="hover:text-brand-blue transition">Contact</a>
+    </div>
+
+    <!-- Right Interaction Suite -->
+    <div class="flex items-center gap-4">
+      <!-- Search Trigger (Hidden on small screens, expands dynamically) -->
+      <div class="relative hidden sm:block">
+        <input type="text" placeholder="Search devices..." class="bg-slate-50 border border-slate-200/80 rounded-full pl-10 pr-4 py-2 text-sm outline-none focus:border-brand-blue focus:bg-white w-52 lg:w-64 transition-all">
+        <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
       </div>
-      <div class="flex items-center gap-3">
-        <div class="hidden md:flex items-center bg-surface border border-white/10 rounded-full px-4 py-2 gap-2 w-56">
-          <span class="text-white/30 text-sm">🔍</span>
-          <input class="bg-transparent text-sm text-white outline-none w-full placeholder-white/30" placeholder="Search products..."/>
-        </div>
-        <button class="relative bg-accent/10 border border-accent/30 text-accent px-4 py-2 rounded-full text-sm font-semibold hover:bg-accent hover:text-black transition">
-          🛒 Cart <span class="ml-1 bg-accent text-black text-xs font-black px-1.5 py-0.5 rounded-full">3</span>
-        </button>
-      </div>
+
+      <!-- Profile Icon -->
+      <button class="w-10 h-10 rounded-full flex items-center justify-center hover:bg-slate-50 border border-slate-100 text-slate-600 transition" aria-label="User Profile">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+      </button>
+
+      <!-- Cart Button with Dynamic pill indicator -->
+      <button onclick="toggleCartDrawer()" class="relative w-11 h-11 rounded-full bg-brand-blueLight hover:bg-brand-blue hover:text-white text-brand-blue flex items-center justify-center transition-all shadow-sm">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+        <span id="cart-counter" class="absolute -top-1 -right-1 bg-rose-500 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center shadow-md">3</span>
+      </button>
     </div>
   </nav>
 
-  <!-- HERO -->
-  <section class="px-4 lg:px-16 py-16 lg:py-24 relative overflow-hidden">
-    <div class="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-transparent pointer-events-none"></div>
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-      <div>
-        <div class="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 text-accent text-xs font-semibold px-4 py-2 rounded-full mb-6">
-          ⚡ New Arrivals — Just Dropped
-        </div>
-        <h1 class="text-5xl lg:text-7xl font-black leading-none tracking-tight mb-6">
-          Next-Gen<br/><span class="text-accent">Tech</span><br/>Is Here
+  <!-- HERO SECTION -->
+  <section class="container mx-auto px-6 lg:px-16 pt-10 pb-12">
+    <div class="bg-white rounded-[32px] border border-slate-100 shadow-premium p-8 lg:p-14 relative overflow-hidden grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+      
+      <!-- Ambient Sparkle / Glow behind Content -->
+      <div class="absolute -top-32 -left-32 w-96 h-96 bg-brand-blueLight rounded-full opacity-60 blur-3xl pointer-events-none"></div>
+      <div class="absolute right-0 bottom-0 w-full lg:w-1/2 h-full bg-gradient-to-tr from-brand-blueLight/30 to-transparent pointer-events-none rounded-r-[32px]"></div>
+
+      <!-- Hero Text Column -->
+      <div class="lg:col-span-5 relative z-10">
+        <span class="inline-block text-brand-blue bg-brand-blueLight text-xs font-bold tracking-widest uppercase px-4 py-1.5 rounded-full mb-6">Hot Gadgets Deals</span>
+        
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-brand-textDark tracking-tight leading-[1.1] mb-6">
+          Up to <span class="text-brand-blue">15% off</span>
         </h1>
-        <p class="text-white/50 text-lg mb-8 max-w-md leading-relaxed">
-          Shop the latest smartphones, laptops, audio gear and smart home devices — all with genuine warranty and M-Pesa checkout.
+        
+        <p class="text-brand-textMuted text-base lg:text-lg leading-relaxed mb-8 max-w-md">
+          The hottest tech. The coolest offers. Explore highly integrated devices that elevate your modern desktop and workplace standard.
         </p>
-        <div class="flex gap-4 flex-wrap">
-          <a href="#products" class="bg-accent text-black font-black px-8 py-3.5 rounded-full hover:opacity-90 transition text-sm">Shop Now →</a>
-          <a href="#" class="border border-white/20 text-white font-semibold px-8 py-3.5 rounded-full hover:border-accent hover:text-accent transition text-sm">View Deals</a>
+        
+        <div class="flex items-center gap-4">
+          <a href="#products" class="bg-brand-blue text-white font-bold px-8 py-4 rounded-xl hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/20 transition-all-300 flex items-center gap-2">
+            SHOP NOW
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+          </a>
         </div>
-        <div class="flex gap-10 mt-12">
-          <div><div class="text-2xl font-black text-accent">5,000+</div><div class="text-white/40 text-xs mt-1">Products</div></div>
-          <div><div class="text-2xl font-black text-accent">50+</div><div class="text-white/40 text-xs mt-1">Top Brands</div></div>
-          <div><div class="text-2xl font-black text-accent">4.8★</div><div class="text-white/40 text-xs mt-1">Rating</div></div>
-          <div><div class="text-2xl font-black text-accent">24hr</div><div class="text-white/40 text-xs mt-1">Delivery NBI</div></div>
+
+        <!-- Slider Pagination Dots below text -->
+        <div class="flex items-center gap-2 mt-12">
+          <button class="w-6 h-2 bg-brand-blue rounded-full" aria-label="Slide 1"></button>
+          <button class="w-2 h-2 bg-slate-200 rounded-full hover:bg-slate-300 transition" aria-label="Slide 2"></button>
+          <button class="w-2 h-2 bg-slate-200 rounded-full hover:bg-slate-300 transition" aria-label="Slide 3"></button>
         </div>
       </div>
-      <!-- HERO PRODUCT SHOWCASE -->
-      <div class="relative">
-        <div class="bg-surface tech-border rounded-3xl p-8 glow">
-          <div class="text-center text-8xl mb-6">📱</div>
-          <div class="text-center">
-            <div class="text-xs text-accent font-semibold tracking-widest uppercase mb-2">Featured Drop</div>
-            <div class="text-xl font-bold mb-1">Samsung Galaxy S25 Ultra</div>
-            <div class="text-white/40 text-sm mb-4">256GB · Phantom Black · 5G</div>
-            <div class="flex items-center justify-center gap-3 mb-5">
-              <span class="text-2xl font-black text-accent">KES 145,000</span>
-              <span class="text-white/30 line-through text-sm">KES 165,000</span>
-            </div>
-            <button class="w-full bg-accent text-black font-black py-3 rounded-xl hover:opacity-90 transition text-sm">Add to Cart</button>
+
+      <!-- Hero Product Showcase Column -->
+      <div class="lg:col-span-7 relative flex justify-center items-center">
+        <!-- Ambient Decorative Circles mimicking the background pattern -->
+        <div class="absolute w-[80%] aspect-square rounded-full border border-dashed border-slate-200/60 animate-[spin_60s_linear_infinite] pointer-events-none"></div>
+        <div class="absolute w-[60%] aspect-square rounded-full bg-brand-blueLight/20 blur-2xl pointer-events-none"></div>
+
+        <!-- Desktop Monitor Studio Image -->
+        <div class="relative z-10 p-4 w-full max-w-[540px]">
+          <img src="https://images.unsplash.com/photo-1527443224154-c4a3942d3acf?w=800&auto=format&fit=crop&q=80" 
+               alt="Pristine Minimalist Desktop Setup" 
+               class="rounded-2xl shadow-premium border border-slate-100 object-cover w-full aspect-[4/3]"
+               onerror="this.src='https://placehold.co/800x600/ffffff/0f172a?text=Minimalist+Workstation'">
+          
+          <!-- Floating UI Badge over Image -->
+          <div class="absolute bottom-10 left-8 bg-white/90 backdrop-blur border border-slate-100 rounded-2xl p-4 shadow-lg max-w-[200px] hidden sm:block">
+            <p class="text-[11px] uppercase tracking-widest text-brand-blue font-bold mb-1">Our first ever</p>
+            <h4 class="text-xs font-bold text-brand-textDark leading-tight">Desktop workstation mockup showcase</h4>
           </div>
         </div>
-        <!-- FLOATING BADGES -->
-        <div class="absolute -top-4 -right-4 bg-green-500 text-black text-xs font-black px-3 py-1.5 rounded-full">✓ In Stock</div>
-        <div class="absolute -bottom-4 -left-4 bg-card tech-border text-white text-xs px-4 py-2 rounded-full">🔒 1yr Warranty</div>
       </div>
+
     </div>
   </section>
 
-  <!-- BRANDS -->
-  <div class="border-y border-white/5 px-4 lg:px-16 py-6 flex flex-wrap gap-8 justify-center items-center">
-    <span class="text-white/20 text-xs uppercase tracking-widest">Official Partners</span>
-    <span class="text-white/40 font-bold text-sm hover:text-white transition cursor-pointer">Samsung</span>
-    <span class="text-white/40 font-bold text-sm hover:text-white transition cursor-pointer">Apple</span>
-    <span class="text-white/40 font-bold text-sm hover:text-white transition cursor-pointer">Sony</span>
-    <span class="text-white/40 font-bold text-sm hover:text-white transition cursor-pointer">HP</span>
-    <span class="text-white/40 font-bold text-sm hover:text-white transition cursor-pointer">Lenovo</span>
-    <span class="text-white/40 font-bold text-sm hover:text-white transition cursor-pointer">LG</span>
-    <span class="text-white/40 font-bold text-sm hover:text-white transition cursor-pointer">JBL</span>
-    <span class="text-white/40 font-bold text-sm hover:text-white transition cursor-pointer">Xiaomi</span>
-  </div>
+  <!-- FEATURE QUICK-LINKS ROW -->
+  <section class="container mx-auto px-6 lg:px-16 py-8">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <!-- Pillar 1: Best Sellers -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-100 shadow-premium flex items-center gap-4 hover:shadow-premium-hover transition-all-300">
+        <div class="w-12 h-12 rounded-full bg-orange-100 flex items-center justify-center text-xl text-orange-500 font-bold">🛒</div>
+        <div>
+          <h4 class="font-bold text-brand-textDark text-sm">Best Sellers</h4>
+          <a href="#products" class="text-xs text-brand-blue font-bold flex items-center gap-1 mt-1 hover:underline">
+            SHOP NOW <span>&rarr;</span>
+          </a>
+        </div>
+      </div>
 
-  <!-- CATEGORIES -->
-  <section class="px-4 lg:px-16 py-14">
-    <div class="text-center mb-10">
-      <h2 class="text-2xl font-black mb-2">Shop by Category</h2>
-      <p class="text-white/40 text-sm">Find exactly what you need</p>
-    </div>
-    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
-      <div class="bg-accent/10 border border-accent/30 rounded-2xl p-4 text-center cursor-pointer hover:bg-accent/20 transition">
-        <div class="text-3xl mb-2">📱</div>
-        <div class="text-xs font-semibold text-accent">Phones</div>
-        <div class="text-white/30 text-xs">240+</div>
+      <!-- Pillar 2: New Arrivals -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-100 shadow-premium flex items-center gap-4 hover:shadow-premium-hover transition-all-300">
+        <div class="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-xl text-blue-500 font-bold">✉️</div>
+        <div>
+          <h4 class="font-bold text-brand-textDark text-sm">New Arrivals</h4>
+          <a href="#products" class="text-xs text-brand-blue font-bold flex items-center gap-1 mt-1 hover:underline">
+            SHOP NOW <span>&rarr;</span>
+          </a>
+        </div>
       </div>
-      <div class="bg-surface tech-border rounded-2xl p-4 text-center cursor-pointer hover:border-accent/40 transition">
-        <div class="text-3xl mb-2">💻</div>
-        <div class="text-xs font-semibold">Laptops</div>
-        <div class="text-white/30 text-xs">180+</div>
+
+      <!-- Pillar 3: Top Rated -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-100 shadow-premium flex items-center gap-4 hover:shadow-premium-hover transition-all-300">
+        <div class="w-12 h-12 rounded-full bg-indigo-100 flex items-center justify-center text-xl text-indigo-500 font-bold">★</div>
+        <div>
+          <h4 class="font-bold text-brand-textDark text-sm">Top Rated</h4>
+          <a href="#products" class="text-xs text-brand-blue font-bold flex items-center gap-1 mt-1 hover:underline">
+            SHOP NOW <span>&rarr;</span>
+          </a>
+        </div>
       </div>
-      <div class="bg-surface tech-border rounded-2xl p-4 text-center cursor-pointer hover:border-accent/40 transition">
-        <div class="text-3xl mb-2">🎧</div>
-        <div class="text-xs font-semibold">Audio</div>
-        <div class="text-white/30 text-xs">320+</div>
+
+      <!-- Pillar 4: On Sale -->
+      <div class="bg-white rounded-2xl p-5 border border-slate-100 shadow-premium flex items-center gap-4 hover:shadow-premium-hover transition-all-300">
+        <div class="w-12 h-12 rounded-full bg-amber-100 flex items-center justify-center text-xl text-amber-500 font-bold">⚡</div>
+        <div>
+          <h4 class="font-bold text-brand-textDark text-sm">On Sale</h4>
+          <a href="#products" class="text-xs text-brand-blue font-bold flex items-center gap-1 mt-1 hover:underline">
+            SHOP NOW <span>&rarr;</span>
+          </a>
+        </div>
       </div>
-      <div class="bg-surface tech-border rounded-2xl p-4 text-center cursor-pointer hover:border-accent/40 transition">
-        <div class="text-3xl mb-2">📺</div>
-        <div class="text-xs font-semibold">TVs</div>
-        <div class="text-white/30 text-xs">95+</div>
-      </div>
-      <div class="bg-surface tech-border rounded-2xl p-4 text-center cursor-pointer hover:border-accent/40 transition">
-        <div class="text-3xl mb-2">⌚</div>
-        <div class="text-xs font-semibold">Wearables</div>
-        <div class="text-white/30 text-xs">140+</div>
-      </div>
-      <div class="bg-surface tech-border rounded-2xl p-4 text-center cursor-pointer hover:border-accent/40 transition">
-        <div class="text-3xl mb-2">🎮</div>
-        <div class="text-xs font-semibold">Gaming</div>
-        <div class="text-white/30 text-xs">210+</div>
-      </div>
-      <div class="bg-surface tech-border rounded-2xl p-4 text-center cursor-pointer hover:border-accent/40 transition">
-        <div class="text-3xl mb-2">🏠</div>
-        <div class="text-xs font-semibold">Smart Home</div>
-        <div class="text-white/30 text-xs">160+</div>
-      </div>
+
     </div>
   </section>
 
-  <!-- PRODUCTS -->
-  <section id="products" class="px-4 lg:px-16 pb-20">
-    <div class="flex justify-between items-center mb-8">
+  <!-- FEATURED PRODUCTS & MACBOOK AIR BANNER SIDE-BY-SIDE -->
+  <section id="products" class="container mx-auto px-6 lg:px-16 py-12">
+    <!-- Row Headers & Live Filter Tab System -->
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-8">
       <div>
-        <h2 class="text-2xl font-black">Featured Products</h2>
-        <p class="text-white/40 text-sm mt-1">Top picks with best prices</p>
+        <h2 class="text-2xl font-black text-brand-textDark tracking-tight">Featured Products</h2>
+        <p class="text-brand-textMuted text-xs mt-1">Carefully picked high-end setups from premium vendors</p>
       </div>
-      <div class="flex gap-2">
-        <button class="bg-accent text-black text-xs font-bold px-4 py-2 rounded-full">All</button>
-        <button class="border border-white/10 text-white/50 text-xs px-4 py-2 rounded-full hover:border-accent hover:text-accent transition">New</button>
-        <button class="border border-white/10 text-white/50 text-xs px-4 py-2 rounded-full hover:border-accent hover:text-accent transition">On Sale</button>
+
+      <!-- Filter pill links with interactive controls -->
+      <div class="flex items-center gap-3 overflow-x-auto pb-2 no-scrollbar">
+        <button onclick="filterProducts('all')" id="filter-all" class="filter-btn bg-brand-blue text-white text-xs font-bold px-4 py-2 rounded-full transition-all">All</button>
+        <button onclick="filterProducts('laptops')" id="filter-laptops" class="filter-btn border border-slate-200 text-brand-textMuted text-xs font-semibold px-4 py-2 rounded-full hover:border-brand-blue hover:text-brand-blue transition-all">Laptops</button>
+        <button onclick="filterProducts('smartphones')" id="filter-smartphones" class="filter-btn border border-slate-200 text-brand-textMuted text-xs font-semibold px-4 py-2 rounded-full hover:border-brand-blue hover:text-brand-blue transition-all">Smartphones</button>
+        <button onclick="filterProducts('headphones')" id="filter-headphones" class="filter-btn border border-slate-200 text-brand-textMuted text-xs font-semibold px-4 py-2 rounded-full hover:border-brand-blue hover:text-brand-blue transition-all">Headphones</button>
+        
+        <!-- Navigation arrows mimicking "Technova" layout slider controls -->
+        <div class="hidden sm:flex items-center gap-1 ml-4 border-l border-slate-200 pl-4">
+          <button class="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-slate-50 transition" aria-label="Previous page">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path></svg>
+          </button>
+          <button class="w-8 h-8 rounded-full border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-slate-50 transition" aria-label="Next page">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+          </button>
+        </div>
       </div>
     </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-
-      <!-- PRODUCT 1 -->
-      <div class="product-card bg-card tech-border rounded-2xl overflow-hidden hover:border-accent/40 hover:glow transition-all duration-300 relative">
-        <div class="h-52 bg-surface flex items-center justify-center text-7xl relative overflow-hidden">
-          📱
-          <span class="absolute top-3 left-3 bg-red-500 text-white text-xs font-black px-2 py-1 rounded-full">-20%</span>
-          <span class="absolute top-3 right-3 text-white/30 hover:text-red-400 cursor-pointer text-lg">♡</span>
-          <div class="cart-slide absolute bottom-0 left-0 right-0 bg-accent text-black text-center py-2.5 text-xs font-black cursor-pointer">+ ADD TO CART</div>
-        </div>
-        <div class="p-4">
-          <div class="text-accent text-xs font-semibold mb-1">Samsung</div>
-          <div class="font-bold text-sm mb-1">Galaxy A55 5G</div>
-          <div class="text-white/40 text-xs mb-3">128GB · 8GB RAM · 6.6" Display</div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-accent font-black">KES 42,000</span>
-            <span class="text-white/30 text-xs line-through">KES 52,500</span>
+    <!-- Main Grid: Product Cards (9 columns) + MacBook Highlight Block (3 columns) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- Product Showcase Container -->
+      <div class="lg:col-span-9 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6" id="product-container-grid">
+        
+        <!-- Product 1: Desktop display monitor -->
+        <div class="product-item bg-white border border-slate-100 rounded-3xl overflow-hidden shadow-premium hover:shadow-premium-hover transition-all-300 relative flex flex-col justify-between" data-category="laptops">
+          <div class="p-4 relative">
+            <div class="flex justify-between items-center mb-3">
+              <span class="bg-amber-100 text-amber-600 text-[10px] font-black px-2.5 py-1 rounded-full uppercase">BESTSELLER</span>
+              <button onclick="toggleFavorite(this)" class="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center text-slate-400 hover:text-rose-500 transition border border-slate-100" aria-label="Add to Favorites">♡</button>
+            </div>
+            <!-- Dynamic clean studio image -->
+            <div class="w-full aspect-square rounded-2xl overflow-hidden product-img-container flex items-center justify-center p-2 mb-4">
+              <img src="https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=500&q=80" alt="48 4K Samsung Monitor" class="w-full h-full object-contain mix-blend-multiply transform hover:scale-105 transition-all-300" onerror="this.src='https://placehold.co/400x400/f8fafc/0f172a?text=48+4K+Monitor'">
+            </div>
+            <h4 class="font-bold text-brand-textDark text-sm leading-snug line-clamp-2">48 4K Samsung Yantablach Expo</h4>
+            <p class="text-[11px] text-brand-textMuted mt-1">Ultra-wide color coverage, HDR10+</p>
           </div>
-          <div class="text-yellow-400 text-xs">★★★★★ <span class="text-white/30">(218)</span></div>
+          <div class="p-4 pt-0 flex justify-between items-center mt-auto border-t border-slate-50">
+            <span class="font-extrabold text-base text-brand-textDark">KES 149,500</span>
+            <button onclick="addToCart('48 4K Samsung Yantablach Expo', 149500)" class="text-xs font-black uppercase text-brand-blue hover:text-blue-700 transition">Add to Cart</button>
+          </div>
         </div>
+
+        <!-- Product 2: Airpod buds -->
+        <div class="product-item bg-white border border-slate-100 rounded-3xl overflow-hidden shadow-premium hover:shadow-premium-hover transition-all-300 relative flex flex-col justify-between" data-category="headphones">
+          <div class="p-4 relative">
+            <div class="flex justify-between items-center mb-3">
+              <span class="bg-blue-100 text-brand-blue text-[10px] font-black px-2.5 py-1 rounded-full uppercase">NEW</span>
+              <button onclick="toggleFavorite(this)" class="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center text-slate-400 hover:text-rose-500 transition border border-slate-100" aria-label="Add to Favorites">♡</button>
+            </div>
+            <div class="w-full aspect-square rounded-2xl overflow-hidden product-img-container flex items-center justify-center p-2 mb-4">
+              <img src="https://images.unsplash.com/photo-1588449668338-d1517824e444?w=500&auto=format&fit=crop&q=80" alt="ApplDe Xlbo Wireless Airpods" class="w-full h-full object-contain mix-blend-multiply transform hover:scale-105 transition-all-300" onerror="this.src='https://placehold.co/400x400/f8fafc/0f172a?text=Wireless+Earbuds'">
+            </div>
+            <h4 class="font-bold text-brand-textDark text-sm leading-snug line-clamp-2">ApplDe Xlbo Wireless Buds</h4>
+            <p class="text-[11px] text-brand-textMuted mt-1">Smart noise cancellation with case</p>
+          </div>
+          <div class="p-4 pt-0 flex justify-between items-center mt-auto border-t border-slate-50">
+            <div>
+              <span class="font-extrabold text-base text-brand-textDark">KES 32,500</span>
+              <span class="text-[10px] text-brand-textMuted line-through ml-1 block">KES 38,000</span>
+            </div>
+            <button onclick="addToCart('ApplDe Xlbo Wireless Buds', 32500)" class="text-xs font-black uppercase text-brand-blue hover:text-blue-700 transition">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- Product 3: Over-ear Headphones -->
+        <div class="product-item bg-white border border-slate-100 rounded-3xl overflow-hidden shadow-premium hover:shadow-premium-hover transition-all-300 relative flex flex-col justify-between" data-category="headphones">
+          <div class="p-4 relative">
+            <div class="flex justify-between items-center mb-3">
+              <span class="bg-indigo-100 text-indigo-600 text-[10px] font-black px-2.5 py-1 rounded-full uppercase">HOT</span>
+              <button onclick="toggleFavorite(this)" class="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center text-slate-400 hover:text-rose-500 transition border border-slate-100" aria-label="Add to Favorites">♡</button>
+            </div>
+            <div class="w-full aspect-square rounded-2xl overflow-hidden product-img-container flex items-center justify-center p-2 mb-4">
+              <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80" alt="Closed-Back Wireless Headphones" class="w-full h-full object-contain mix-blend-multiply transform hover:scale-105 transition-all-300" onerror="this.src='https://placehold.co/400x400/f8fafc/0f172a?text=ANC+Headphones'">
+            </div>
+            <h4 class="font-bold text-brand-textDark text-sm leading-snug line-clamp-2">XR-2977 Pro Studio Headphones</h4>
+            <p class="text-[11px] text-brand-textMuted mt-1">35 hours lossless HD studio audio</p>
+          </div>
+          <div class="p-4 pt-0 flex justify-between items-center mt-auto border-t border-slate-50">
+            <span class="font-extrabold text-base text-brand-textDark">KES 91,000</span>
+            <button onclick="addToCart('XR-2977 Pro Studio Headphones', 91000)" class="text-xs font-black uppercase text-brand-blue hover:text-blue-700 transition">Add to Cart</button>
+          </div>
+        </div>
+
+        <!-- Product 4: 5G Premium Smartphone -->
+        <div class="product-item bg-white border border-slate-100 rounded-3xl overflow-hidden shadow-premium hover:shadow-premium-hover transition-all-300 relative flex flex-col justify-between" data-category="smartphones">
+          <div class="p-4 relative">
+            <div class="flex justify-between items-center mb-3">
+              <span class="bg-emerald-100 text-emerald-600 text-[10px] font-black px-2.5 py-1 rounded-full uppercase">SALE</span>
+              <button onclick="toggleFavorite(this)" class="w-8 h-8 rounded-full bg-white shadow-sm flex items-center justify-center text-slate-400 hover:text-rose-500 transition border border-slate-100" aria-label="Add to Favorites">♡</button>
+            </div>
+            <div class="w-full aspect-square rounded-2xl overflow-hidden product-img-container flex items-center justify-center p-2 mb-4">
+              <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=500&q=80" alt="5G Taka Altra Smartphone" class="w-full h-full object-contain mix-blend-multiply transform hover:scale-105 transition-all-300" onerror="this.src='https://placehold.co/400x400/f8fafc/0f172a?text=Smartphone'">
+            </div>
+            <h4 class="font-bold text-brand-textDark text-sm leading-snug line-clamp-2">Taka Altra 5G Ultimate Phone</h4>
+            <p class="text-[11px] text-brand-textMuted mt-1">Stardust grey, telephoto 108MP lens</p>
+          </div>
+          <div class="p-4 pt-0 flex justify-between items-center mt-auto border-t border-slate-50">
+            <div>
+              <span class="font-extrabold text-base text-brand-textDark">KES 123,000</span>
+              <span class="text-[10px] text-brand-textMuted line-through ml-1 block">KES 130,000</span>
+            </div>
+            <button onclick="addToCart('Taka Altra 5G Ultimate Phone', 123000)" class="text-xs font-black uppercase text-brand-blue hover:text-blue-700 transition">Add to Cart</button>
+          </div>
+        </div>
+
       </div>
 
-      <!-- PRODUCT 2 -->
-      <div class="product-card bg-card tech-border rounded-2xl overflow-hidden hover:border-accent/40 transition-all duration-300 relative">
-        <div class="h-52 bg-surface flex items-center justify-center text-7xl relative overflow-hidden">
-          💻
-          <span class="absolute top-3 left-3 bg-accent text-black text-xs font-black px-2 py-1 rounded-full">NEW</span>
-          <span class="absolute top-3 right-3 text-white/30 hover:text-red-400 cursor-pointer text-lg">♡</span>
-          <div class="cart-slide absolute bottom-0 left-0 right-0 bg-accent text-black text-center py-2.5 text-xs font-black cursor-pointer">+ ADD TO CART</div>
-        </div>
-        <div class="p-4">
-          <div class="text-accent text-xs font-semibold mb-1">HP</div>
-          <div class="font-bold text-sm mb-1">Pavilion 15 Intel i7</div>
-          <div class="text-white/40 text-xs mb-3">512GB SSD · 16GB RAM · Win11</div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-accent font-black">KES 88,000</span>
-          </div>
-          <div class="text-yellow-400 text-xs">★★★★☆ <span class="text-white/30">(94)</span></div>
-        </div>
-      </div>
+      <!-- Macbook Air High-Impact Neon Banner -->
+      <div class="lg:col-span-3 relative bg-gradient-to-b from-[#4083f2] to-[#2563eb] rounded-[32px] p-8 text-white flex flex-col justify-between overflow-hidden shadow-premium hover:shadow-premium-hover transition-all-300">
+        <!-- Floating circular blur ring inside neon card -->
+        <div class="absolute -top-12 -right-12 w-48 h-48 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
 
-      <!-- PRODUCT 3 -->
-      <div class="product-card bg-card tech-border rounded-2xl overflow-hidden hover:border-accent/40 transition-all duration-300 relative">
-        <div class="h-52 bg-surface flex items-center justify-center text-7xl relative overflow-hidden">
-          🎧
-          <span class="absolute top-3 left-3 bg-purple-500 text-white text-xs font-black px-2 py-1 rounded-full">HOT</span>
-          <span class="absolute top-3 right-3 text-white/30 hover:text-red-400 cursor-pointer text-lg">♡</span>
-          <div class="cart-slide absolute bottom-0 left-0 right-0 bg-accent text-black text-center py-2.5 text-xs font-black cursor-pointer">+ ADD TO CART</div>
-        </div>
-        <div class="p-4">
-          <div class="text-accent text-xs font-semibold mb-1">Sony</div>
-          <div class="font-bold text-sm mb-1">WH-1000XM5 ANC</div>
-          <div class="text-white/40 text-xs mb-3">Noise Cancelling · 30hr Battery</div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-accent font-black">KES 28,000</span>
-            <span class="text-white/30 text-xs line-through">KES 35,000</span>
+        <div>
+          <h3 class="font-black text-2xl tracking-tight leading-tight">MacBook Air</h3>
+          <p class="text-xs text-white/80 uppercase font-bold tracking-wider mt-1.5">With M4 Chip & Liquid Retina Display</p>
+          
+          <div class="mt-4 flex flex-col">
+            <span class="text-[11px] uppercase tracking-widest text-white/70">Starting at</span>
+            <span class="text-3xl font-black mt-1">KES 165,000</span>
           </div>
-          <div class="text-yellow-400 text-xs">★★★★★ <span class="text-white/30">(512)</span></div>
         </div>
-      </div>
 
-      <!-- PRODUCT 4 -->
-      <div class="product-card bg-card tech-border rounded-2xl overflow-hidden hover:border-accent/40 transition-all duration-300 relative">
-        <div class="h-52 bg-surface flex items-center justify-center text-7xl relative overflow-hidden">
-          ⌚
-          <span class="absolute top-3 right-3 text-white/30 hover:text-red-400 cursor-pointer text-lg">♡</span>
-          <div class="cart-slide absolute bottom-0 left-0 right-0 bg-accent text-black text-center py-2.5 text-xs font-black cursor-pointer">+ ADD TO CART</div>
+        <!-- MacBook Studio Showcase Image -->
+        <div class="my-6 relative flex justify-center h-48">
+          <img src="https://images.unsplash.com/photo-1517336714731-489689fd1ca8?w=500&q=80" 
+               alt="Sleek MacBook Air Floating Profile" 
+               class="absolute -bottom-2 w-full max-w-[200px] object-contain drop-shadow-2xl hover:scale-105 transition-transform duration-500"
+               onerror="this.src='https://placehold.co/400x300/2563eb/ffffff?text=MacBook+Air'">
         </div>
-        <div class="p-4">
-          <div class="text-accent text-xs font-semibold mb-1">Samsung</div>
-          <div class="font-bold text-sm mb-1">Galaxy Watch 7</div>
-          <div class="text-white/40 text-xs mb-3">44mm · GPS · Health Monitor</div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-accent font-black">KES 32,000</span>
-          </div>
-          <div class="text-yellow-400 text-xs">★★★★☆ <span class="text-white/30">(176)</span></div>
-        </div>
-      </div>
 
-      <!-- PRODUCT 5 -->
-      <div class="product-card bg-card tech-border rounded-2xl overflow-hidden hover:border-accent/40 transition-all duration-300 relative">
-        <div class="h-52 bg-surface flex items-center justify-center text-7xl relative overflow-hidden">
-          📺
-          <span class="absolute top-3 left-3 bg-red-500 text-white text-xs font-black px-2 py-1 rounded-full">-15%</span>
-          <span class="absolute top-3 right-3 text-white/30 hover:text-red-400 cursor-pointer text-lg">♡</span>
-          <div class="cart-slide absolute bottom-0 left-0 right-0 bg-accent text-black text-center py-2.5 text-xs font-black cursor-pointer">+ ADD TO CART</div>
-        </div>
-        <div class="p-4">
-          <div class="text-accent text-xs font-semibold mb-1">LG</div>
-          <div class="font-bold text-sm mb-1">55" 4K Smart TV</div>
-          <div class="text-white/40 text-xs mb-3">OLED · WebOS · Dolby Vision</div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-accent font-black">KES 72,000</span>
-            <span class="text-white/30 text-xs line-through">KES 85,000</span>
-          </div>
-          <div class="text-yellow-400 text-xs">★★★★★ <span class="text-white/30">(89)</span></div>
-        </div>
-      </div>
-
-      <!-- PRODUCT 6 -->
-      <div class="product-card bg-card tech-border rounded-2xl overflow-hidden hover:border-accent/40 transition-all duration-300 relative">
-        <div class="h-52 bg-surface flex items-center justify-center text-7xl relative overflow-hidden">
-          🎮
-          <span class="absolute top-3 left-3 bg-accent text-black text-xs font-black px-2 py-1 rounded-full">NEW</span>
-          <span class="absolute top-3 right-3 text-white/30 hover:text-red-400 cursor-pointer text-lg">♡</span>
-          <div class="cart-slide absolute bottom-0 left-0 right-0 bg-accent text-black text-center py-2.5 text-xs font-black cursor-pointer">+ ADD TO CART</div>
-        </div>
-        <div class="p-4">
-          <div class="text-accent text-xs font-semibold mb-1">Sony</div>
-          <div class="font-bold text-sm mb-1">PlayStation 5 Slim</div>
-          <div class="text-white/40 text-xs mb-3">1TB · Disc Edition · DualSense</div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-accent font-black">KES 68,000</span>
-          </div>
-          <div class="text-yellow-400 text-xs">★★★★★ <span class="text-white/30">(430)</span></div>
-        </div>
-      </div>
-
-      <!-- PRODUCT 7 -->
-      <div class="product-card bg-card tech-border rounded-2xl overflow-hidden hover:border-accent/40 transition-all duration-300 relative">
-        <div class="h-52 bg-surface flex items-center justify-center text-7xl relative overflow-hidden">
-          🖨️
-          <span class="absolute top-3 right-3 text-white/30 hover:text-red-400 cursor-pointer text-lg">♡</span>
-          <div class="cart-slide absolute bottom-0 left-0 right-0 bg-accent text-black text-center py-2.5 text-xs font-black cursor-pointer">+ ADD TO CART</div>
-        </div>
-        <div class="p-4">
-          <div class="text-accent text-xs font-semibold mb-1">HP</div>
-          <div class="font-bold text-sm mb-1">DeskJet 2755e</div>
-          <div class="text-white/40 text-xs mb-3">Wireless · Print/Scan/Copy</div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-accent font-black">KES 8,500</span>
-          </div>
-          <div class="text-yellow-400 text-xs">★★★★☆ <span class="text-white/30">(67)</span></div>
-        </div>
-      </div>
-
-      <!-- PRODUCT 8 -->
-      <div class="product-card bg-card tech-border rounded-2xl overflow-hidden hover:border-accent/40 transition-all duration-300 relative">
-        <div class="h-52 bg-surface flex items-center justify-center text-7xl relative overflow-hidden">
-          📷
-          <span class="absolute top-3 left-3 bg-purple-500 text-white text-xs font-black px-2 py-1 rounded-full">HOT</span>
-          <span class="absolute top-3 right-3 text-white/30 hover:text-red-400 cursor-pointer text-lg">♡</span>
-          <div class="cart-slide absolute bottom-0 left-0 right-0 bg-accent text-black text-center py-2.5 text-xs font-black cursor-pointer">+ ADD TO CART</div>
-        </div>
-        <div class="p-4">
-          <div class="text-accent text-xs font-semibold mb-1">Canon</div>
-          <div class="font-bold text-sm mb-1">EOS R50 Mirrorless</div>
-          <div class="text-white/40 text-xs mb-3">24.2MP · 4K Video · Wi-Fi</div>
-          <div class="flex items-center gap-2 mb-2">
-            <span class="text-accent font-black">KES 95,000</span>
-            <span class="text-white/30 text-xs line-through">KES 110,000</span>
-          </div>
-          <div class="text-yellow-400 text-xs">★★★★★ <span class="text-white/30">(203)</span></div>
-        </div>
+        <button onclick="addToCart('MacBook Air M4', 165000)" class="w-full bg-white text-brand-blue font-extrabold text-xs py-3.5 rounded-xl hover:bg-slate-50 transition shadow-lg shadow-blue-800/20 uppercase tracking-wider">
+          SHOP NOW <span>&rarr;</span>
+        </button>
       </div>
 
     </div>
   </section>
 
-  <!-- FLASH DEAL BANNER -->
-  <div class="mx-4 lg:mx-16 mb-20 bg-gradient-to-r from-accent/10 to-blue-900/20 border border-accent/20 rounded-3xl p-8 flex flex-wrap justify-between items-center gap-6">
-    <div>
-      <div class="text-accent text-xs font-semibold uppercase tracking-widest mb-2">⚡ Flash Deal</div>
-      <h3 class="text-2xl font-black mb-1">iPhone 15 Pro — KES <span class="text-accent">118,000</span></h3>
-      <p class="text-white/40 text-sm">Was KES 145,000 · 256GB · Titanium · Original Sealed</p>
-      <div class="flex gap-4 mt-4">
-        <div class="bg-dark border border-white/10 rounded-xl px-4 py-2 text-center">
-          <div class="text-accent font-black text-xl" id="fh">05</div>
-          <div class="text-white/30 text-xs">Hrs</div>
-        </div>
-        <div class="bg-dark border border-white/10 rounded-xl px-4 py-2 text-center">
-          <div class="text-accent font-black text-xl" id="fm">42</div>
-          <div class="text-white/30 text-xs">Min</div>
-        </div>
-        <div class="bg-dark border border-white/10 rounded-xl px-4 py-2 text-center">
-          <div class="text-accent font-black text-xl" id="fs">18</div>
-          <div class="text-white/30 text-xs">Sec</div>
-        </div>
+  <!-- JUST ARRIVED STRIP & SAVE 35% BANNER -->
+  <section class="container mx-auto px-6 lg:px-16 py-12">
+    <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+      <div>
+        <h2 class="text-2xl font-black text-brand-textDark tracking-tight">Just Arrived</h2>
+        <p class="text-brand-textMuted text-xs mt-1">The absolute newest trends to modern workplace ecosystems</p>
       </div>
+      <a href="#products" class="text-xs text-brand-blue font-bold tracking-widest uppercase hover:underline">View All</a>
     </div>
-    <div class="text-center">
-      <div class="text-7xl mb-4">📱</div>
-      <button class="bg-accent text-black font-black px-8 py-3 rounded-full hover:opacity-90 transition text-sm">Grab This Deal</button>
+
+    <!-- Layout: 4 small product cards left (9/12) + Right square promo box (3/12) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+      
+      <!-- Small cards container -->
+      <div class="lg:col-span-9 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+        
+        <!-- Smartwatch -->
+        <div class="bg-white border border-slate-100 rounded-3xl p-4 shadow-premium hover:shadow-premium-hover transition-all-300 flex flex-col justify-between">
+          <div>
+            <div class="w-full aspect-square rounded-2xl overflow-hidden product-img-container flex items-center justify-center p-2 mb-4">
+              <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=80" alt="Premium Smartwatch" class="w-full h-full object-contain mix-blend-multiply transform hover:scale-105 transition-all-300" onerror="this.src='https://placehold.co/400x400/f8fafc/0f172a?text=Smartwatch'">
+            </div>
+            <h4 class="font-bold text-brand-textDark text-sm leading-snug">NOZO Smartwatch Active 4</h4>
+            <p class="text-[10px] text-brand-textMuted mt-1">Active health metric, heart rate monitor</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-50 flex justify-between items-center">
+            <span class="font-extrabold text-sm text-brand-textDark">KES 45,500</span>
+            <button onclick="addToCart('NOZO Smartwatch Active 4', 45500)" class="text-xs font-black uppercase text-brand-blue hover:text-blue-700 transition">Add</button>
+          </div>
+        </div>
+
+        <!-- Galaxy Tab/Tablet -->
+        <div class="bg-white border border-slate-100 rounded-3xl p-4 shadow-premium hover:shadow-premium-hover transition-all-300 flex flex-col justify-between">
+          <div>
+            <div class="w-full aspect-square rounded-2xl overflow-hidden product-img-container flex items-center justify-center p-2 mb-4">
+              <img src="https://images.unsplash.com/photo-1544244015-0df4b3ffc6b0?w=500&q=80" alt="Tablet Pro" class="w-full h-full object-contain mix-blend-multiply transform hover:scale-105 transition-all-300" onerror="this.src='https://placehold.co/400x400/f8fafc/0f172a?text=Tablet'">
+            </div>
+            <h4 class="font-bold text-brand-textDark text-sm leading-snug">Galaxy Tab Pro Z10</h4>
+            <p class="text-[10px] text-brand-textMuted mt-1">Slim premium slate, pen compatible</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-50 flex justify-between items-center">
+            <span class="font-extrabold text-sm text-brand-textDark">KES 89,500</span>
+            <button onclick="addToCart('Galaxy Tab Pro Z10', 89500)" class="text-xs font-black uppercase text-brand-blue hover:text-blue-700 transition">Add</button>
+          </div>
+        </div>
+
+        <!-- Mouse -->
+        <div class="bg-white border border-slate-100 rounded-3xl p-4 shadow-premium hover:shadow-premium-hover transition-all-300 flex flex-col justify-between">
+          <div>
+            <div class="w-full aspect-square rounded-2xl overflow-hidden product-img-container flex items-center justify-center p-2 mb-4">
+              <img src="https://images.unsplash.com/photo-1615663245857-ac93bb7c39e7?w=500&q=80" alt="Wireless Gaming Mouse" class="w-full h-full object-contain mix-blend-multiply transform hover:scale-105 transition-all-300" onerror="this.src='https://placehold.co/400x400/f8fafc/0f172a?text=Gaming+Mouse'">
+            </div>
+            <h4 class="font-bold text-brand-textDark text-sm leading-snug">PHX-900 Wireless Mouse</h4>
+            <p class="text-[10px] text-brand-textMuted mt-1">Ergonomic side grip, high precision DPI</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-50 flex justify-between items-center">
+            <span class="font-extrabold text-sm text-brand-textDark">KES 5,500</span>
+            <button onclick="addToCart('PHX-900 Wireless Mouse', 5500)" class="text-xs font-black uppercase text-brand-blue hover:text-blue-700 transition">Add</button>
+          </div>
+        </div>
+
+        <!-- Bluetooth Speaker -->
+        <div class="bg-white border border-slate-100 rounded-3xl p-4 shadow-premium hover:shadow-premium-hover transition-all-300 flex flex-col justify-between">
+          <div>
+            <div class="w-full aspect-square rounded-2xl overflow-hidden product-img-container flex items-center justify-center p-2 mb-4">
+              <img src="https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500&q=80" alt="Smart Bluetooth Speaker" class="w-full h-full object-contain mix-blend-multiply transform hover:scale-105 transition-all-300" onerror="this.src='https://placehold.co/400x400/f8fafc/0f172a?text=Speaker'">
+            </div>
+            <h4 class="font-bold text-brand-textDark text-sm leading-snug">EpoMax Bluetooth Speaker</h4>
+            <p class="text-[10px] text-brand-textMuted mt-1">Water resistant 3D surround sound audio</p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-50 flex justify-between items-center">
+            <span class="font-extrabold text-sm text-brand-textDark">KES 19,500</span>
+            <button onclick="addToCart('EpoMax Bluetooth Speaker', 19500)" class="text-xs font-black uppercase text-brand-blue hover:text-blue-700 transition">Add</button>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Right square blue promo banner -->
+      <div class="lg:col-span-3 bg-gradient-to-tr from-[#3b82f6] to-brand-blue rounded-[32px] p-8 text-white flex flex-col justify-between overflow-hidden shadow-premium hover:shadow-premium-hover transition-all-300 relative">
+        <div class="absolute -bottom-10 -left-10 w-36 h-36 bg-white/10 rounded-full blur-2xl pointer-events-none"></div>
+        <div>
+          <span class="bg-white/20 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-wider">Flash Sale</span>
+          <h3 class="font-black text-2xl tracking-tight mt-4 leading-tight">Save up to 35% on Workspace Bundles</h3>
+          <p class="text-xs text-white/80 mt-2">Elevate your performance standard instantly.</p>
+        </div>
+        <a href="#products" class="w-full mt-6 bg-white text-brand-blue font-extrabold text-xs py-3.5 rounded-xl hover:bg-slate-50 transition shadow-lg text-center uppercase tracking-wider">
+          Explore Deals
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SIDE CART DRAWER (Slide-out Overlapping Sidebar) -->
+  <div id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-50 shadow-2xl transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col border-l border-slate-100">
+    <div class="p-6 border-b border-slate-100 flex justify-between items-center">
+      <h3 class="text-lg font-bold text-brand-textDark flex items-center gap-2">
+        <span>Shopping Cart</span>
+        <span id="drawer-item-count" class="bg-brand-blueLight text-brand-blue text-xs px-2.5 py-0.5 rounded-full font-bold">3</span>
+      </h3>
+      <button onclick="toggleCartDrawer()" class="w-8 h-8 rounded-full border border-slate-100 hover:bg-slate-50 text-slate-500 font-bold flex items-center justify-center transition">&times;</button>
+    </div>
+    
+    <!-- Dynamic Cart Content -->
+    <div id="cart-items-container" class="p-6 overflow-y-auto flex-1 flex flex-col gap-4 no-scrollbar">
+      <!-- Injected dynamically by JavaScript -->
+    </div>
+
+    <!-- Summary Panel -->
+    <div class="p-6 border-t border-slate-100 bg-slate-50/50">
+      <div class="flex justify-between items-center text-sm font-medium mb-4">
+        <span class="text-brand-textMuted">Estimated Subtotal</span>
+        <span id="cart-subtotal-display" class="font-black text-lg text-brand-textDark">KES 0</span>
+      </div>
+      <button class="w-full bg-brand-blue text-white font-bold py-4 rounded-xl hover:bg-blue-700 hover:shadow-lg hover:shadow-blue-500/20 transition-all-300 tracking-wider text-xs uppercase">
+        Proceed to Secure Checkout
+      </button>
     </div>
   </div>
-
-  <!-- WHY US -->
-  <section class="px-4 lg:px-16 pb-20 grid grid-cols-2 md:grid-cols-4 gap-5">
-    <div class="bg-card tech-border rounded-2xl p-5 text-center">
-      <div class="text-3xl mb-3">🚀</div>
-      <div class="font-bold text-sm mb-1">Same-Day Delivery</div>
-      <div class="text-white/40 text-xs">Within Nairobi CBD & suburbs</div>
-    </div>
-    <div class="bg-card tech-border rounded-2xl p-5 text-center">
-      <div class="text-3xl mb-3">✅</div>
-      <div class="font-bold text-sm mb-1">100% Genuine</div>
-      <div class="text-white/40 text-xs">All products are original & sealed</div>
-    </div>
-    <div class="bg-card tech-border rounded-2xl p-5 text-center">
-      <div class="text-3xl mb-3">🔧</div>
-      <div class="font-bold text-sm mb-1">Official Warranty</div>
-      <div class="text-white/40 text-xs">1 year manufacturer warranty</div>
-    </div>
-    <div class="bg-card tech-border rounded-2xl p-5 text-center">
-      <div class="text-3xl mb-3">💳</div>
-      <div class="font-bold text-sm mb-1">M-Pesa & Card</div>
-      <div class="text-white/40 text-xs">Secure & instant checkout</div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS -->
-  <section class="px-4 lg:px-16 pb-20">
-    <div class="text-center mb-10">
-      <h2 class="text-2xl font-black mb-2">Customer Reviews</h2>
-      <p class="text-white/40 text-sm">Real buyers, real feedback</p>
-    </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-      <div class="bg-card tech-border rounded-2xl p-6">
-        <div class="text-yellow-400 text-sm mb-3">★★★★★</div>
-        <p class="text-white/50 text-sm leading-relaxed mb-4">"Ordered the Sony headphones on Tuesday morning, they arrived by 3pm. Absolutely genuine product. VoltX is now my go-to electronics shop!"</p>
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-full bg-accent/20 text-accent font-black text-xs flex items-center justify-center">PK</div>
-          <div><div class="text-sm font-semibold">Peter Kamau</div><div class="text-white/30 text-xs">Nairobi</div></div>
-        </div>
-      </div>
-      <div class="bg-card tech-border rounded-2xl p-6">
-        <div class="text-yellow-400 text-sm mb-3">★★★★★</div>
-        <p class="text-white/50 text-sm leading-relaxed mb-4">"Got my HP laptop here and the price beat every other shop I checked. M-Pesa payment was instant and the receipt came via SMS. Super smooth."</p>
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-full bg-accent/20 text-accent font-black text-xs flex items-center justify-center">LW</div>
-          <div><div class="text-sm font-semibold">Linda Wanjiku</div><div class="text-white/30 text-xs">Thika</div></div>
-        </div>
-      </div>
-      <div class="bg-card tech-border rounded-2xl p-6">
-        <div class="text-yellow-400 text-sm mb-3">★★★★☆</div>
-        <p class="text-white/50 text-sm leading-relaxed mb-4">"The PS5 I ordered came with all accessories and a full year warranty card. Customer service answered my question within 10 minutes. Legit shop."</p>
-        <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-full bg-accent/20 text-accent font-black text-xs flex items-center justify-center">MO</div>
-          <div><div class="text-sm font-semibold">Mark Otieno</div><div class="text-white/30 text-xs">Kisumu</div></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- NEWSLETTER -->
-  <div class="mx-4 lg:mx-16 mb-20 bg-card tech-border rounded-3xl p-10 text-center">
-    <div class="text-3xl mb-3">📬</div>
-    <h2 class="text-2xl font-black mb-2">Get Deal Alerts</h2>
-    <p class="text-white/40 text-sm mb-6">Be the first to know when prices drop or new products land.</p>
-    <div class="flex max-w-md mx-auto gap-2">
-      <input class="flex-1 bg-surface border border-white/10 rounded-full px-5 py-3 text-sm text-white outline-none focus:border-accent transition placeholder-white/20" placeholder="your@email.com"/>
-      <button class="bg-accent text-black font-black px-6 py-3 rounded-full hover:opacity-90 transition text-sm whitespace-nowrap">Subscribe</button>
-    </div>
-  </div>
+  
+  <!-- Backdrop shading filter when Cart Drawer is active -->
+  <div id="cart-backdrop" onclick="toggleCartDrawer()" class="fixed inset-0 bg-brand-textDark/20 backdrop-blur-xs z-40 hidden transition-all"></div>
 
   <!-- FOOTER -->
-  <footer class="bg-surface border-t border-white/5 px-4 lg:px-16 py-14">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
+  <footer id="footer" class="bg-white border-t border-slate-100 mt-20">
+    <div class="container mx-auto px-6 lg:px-16 py-12 grid grid-cols-1 md:grid-cols-12 gap-8">
+      <div class="md:col-span-4">
+        <a href="#" class="flex items-center gap-2 mb-4">
+          <div class="w-8 h-8 bg-brand-blue text-white rounded-lg flex items-center justify-center font-black text-lg shadow-md shadow-blue-500/10">V</div>
+          <span class="font-extrabold text-xl tracking-tight text-brand-textDark">Volt<span class="text-brand-blue">X</span></span>
+        </a>
+        <p class="text-brand-textMuted text-xs max-w-xs leading-relaxed">
+          Premium storefront showcasing structural design excellence and highly coherent digital experiences for creators worldwide.
+        </p>
+      </div>
+      <div class="md:col-span-3">
+        <h4 class="font-bold text-sm text-brand-textDark mb-4">Catalog Selection</h4>
+        <ul class="space-y-2.5 text-xs text-brand-textMuted font-medium">
+          <li><a href="#products" class="hover:text-brand-blue transition">High-End Monitors</a></li>
+          <li><a href="#products" class="hover:text-brand-blue transition">Acoustic Audio Systems</a></li>
+          <li><a href="#products" class="hover:text-brand-blue transition">Modern Smartphone Units</a></li>
+        </ul>
+      </div>
+      <div class="md:col-span-3">
+        <h4 class="font-bold text-sm text-brand-textDark mb-4">Company Support</h4>
+        <ul class="space-y-2.5 text-xs text-brand-textMuted font-medium">
+          <li><a href="#" class="hover:text-brand-blue transition">Tracking Logistics</a></li>
+          <li><a href="#" class="hover:text-brand-blue transition">Warranty Information</a></li>
+          <li><a href="#" class="hover:text-brand-blue transition">Privacy Protection</a></li>
+        </ul>
+      </div>
       <div class="md:col-span-2">
-        <div class="text-2xl font-black mb-3">Volt<span class="text-accent">X</span></div>
-        <p class="text-white/30 text-sm leading-relaxed max-w-sm">Kenya's trusted electronics store. Genuine products, unbeatable prices, and lightning-fast delivery — right to your door.</p>
-        <div class="flex gap-3 mt-5">
-          <div class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-xs hover:border-accent cursor-pointer transition text-white/40">f</div>
-          <div class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-xs hover:border-accent cursor-pointer transition text-white/40">ig</div>
-          <div class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-xs hover:border-accent cursor-pointer transition text-white/40">tw</div>
-          <div class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-xs hover:border-accent cursor-pointer transition text-white/40">yt</div>
-        </div>
-      </div>
-      <div>
-        <h4 class="text-xs font-bold uppercase tracking-widest text-white/30 mb-4">Shop</h4>
-        <div class="space-y-2 text-sm text-white/40">
-          <a href="#" class="block hover:text-accent transition">Smartphones</a>
-          <a href="#" class="block hover:text-accent transition">Laptops</a>
-          <a href="#" class="block hover:text-accent transition">Audio</a>
-          <a href="#" class="block hover:text-accent transition">Gaming</a>
-          <a href="#" class="block hover:text-accent transition">Smart Home</a>
-        </div>
-      </div>
-      <div>
-        <h4 class="text-xs font-bold uppercase tracking-widest text-white/30 mb-4">Support</h4>
-        <div class="space-y-2 text-sm text-white/40">
-          <p>📍 Tom Mboya St, Nairobi</p>
-          <p>📞 +254 700 456 789</p>
-          <p>✉️ support@voltx.co.ke</p>
-          <p>🕐 Mon–Sat: 8am – 7pm</p>
+        <h4 class="font-bold text-sm text-brand-textDark mb-4">Social Interface</h4>
+        <div class="flex items-center gap-3 text-slate-400">
+          <a href="#" class="w-8 h-8 rounded-full border border-slate-100 flex items-center justify-center hover:text-brand-blue hover:bg-slate-50 transition">𝕏</a>
+          <a href="#" class="w-8 h-8 rounded-full border border-slate-100 flex items-center justify-center hover:text-brand-blue hover:bg-slate-50 transition">📸</a>
+          <a href="#" class="w-8 h-8 rounded-full border border-slate-100 flex items-center justify-center hover:text-brand-blue hover:bg-slate-50 transition">💼</a>
         </div>
       </div>
     </div>
-    <div class="border-t border-white/5 pt-6 flex flex-wrap justify-between text-xs text-white/20 gap-3">
-      <p>© 2025 VoltX Electronics. All rights reserved.</p>
-      <p>🇰🇪 Serving Kenya since 2018</p>
+    <div class="border-t border-slate-50 py-6 px-6 lg:px-16 flex flex-col sm:flex-row justify-between items-center text-[11px] text-brand-textMuted gap-4">
+      <span>&copy; 2026 VoltX Global Technologies. All high fidelity design rights reserved.</span>
+      <div class="flex items-center gap-4">
+        <a href="#" class="hover:underline">Terms of Service</a>
+        <a href="#" class="hover:underline">Cookies Settings</a>
+      </div>
     </div>
   </footer>
 
-  <div class="h-16"></div>
-
-  <!-- SHOWCASE BAR -->
-  <div class="fixed bottom-0 left-0 right-0 z-50 bg-accent text-black flex justify-between items-center px-6 py-3 flex-wrap gap-3">
-    <p class="text-sm font-bold">👀 Demo — <strong>Electronics Shop Template</strong></p>
-    <div class="flex gap-3">
-      <a href="/" class="bg-black/20 text-black font-semibold text-sm px-4 py-2 rounded-full">← Back</a>
-      <a href="mailto:zurich@email.com?subject=I want the Electronics Shop Website" class="bg-black text-accent font-black text-sm px-5 py-2 rounded-full">Order This Website</a>
-    </div>
-  </div>
-
+  <!-- DYNAMIC CORE ENGINE INTERACTION SYSTEM -->
   <script>
-    let t = (5*3600)+(42*60)+18;
-    setInterval(()=>{
-      t--; if(t<0) t=0;
-      document.getElementById('fh').textContent=String(Math.floor(t/3600)).padStart(2,'0');
-      document.getElementById('fm').textContent=String(Math.floor((t%3600)/60)).padStart(2,'0');
-      document.getElementById('fs').textContent=String(t%60).padStart(2,'0');
-    },1000);
+    // Initial global baseline state matching indicators
+    let cart = [
+      { id: 1, name: '48 4K Samsung Yantablach Expo', price: 149500, qty: 1 },
+      { id: 2, name: 'ApplDe Xlbo Wireless Buds', price: 32500, qty: 1 },
+      { id: 3, name: 'PHX-900 Wireless Mouse', price: 5500, qty: 1 }
+    ];
+
+    // Filter configuration actions
+    function filterProducts(category) {
+      // Manage Active States buttons styles
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('bg-brand-blue', 'text-white');
+        btn.classList.add('border', 'border-slate-200', 'text-brand-textMuted', 'font-semibold');
+      });
+
+      const activeBtn = document.getElementById(`filter-${category}`);
+      if (activeBtn) {
+        activeBtn.classList.remove('border', 'border-slate-200', 'text-brand-textMuted', 'font-semibold');
+        activeBtn.classList.add('bg-brand-blue', 'text-white', 'font-bold');
+      }
+
+      // Filter Item elements layout dynamically
+      document.querySelectorAll('.product-item').forEach(item => {
+        if (category === 'all' || item.getAttribute('data-category') === category) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+    }
+
+    // Toggle Favorited Icon State representation
+    function toggleFavorite(element) {
+      if (element.innerText === '♡') {
+        element.innerText = '♥';
+        element.classList.add('text-rose-500');
+      } else {
+        element.innerText = '♡';
+        element.classList.remove('text-rose-500');
+      }
+    }
+
+    // Toggle Sidebar Visibility Drawer Panel System
+    function toggleCartDrawer() {
+      const drawer = document.getElementById('cart-drawer');
+      const backdrop = document.getElementById('cart-backdrop');
+      
+      if (drawer.classList.contains('translate-x-full')) {
+        drawer.classList.remove('translate-x-full');
+        backdrop.classList.remove('hidden');
+      } else {
+        drawer.classList.add('translate-x-full');
+        backdrop.classList.add('hidden');
+      }
+    }
+
+    // Append standard item into Global Memory list array architecture
+    function addToCart(name, price) {
+      const existingItem = cart.find(item => item.name === name);
+      if (existingItem) {
+        existingItem.qty += 1;
+      } else {
+        cart.push({ id: Date.now(), name: name, price: price, qty: 1 });
+      }
+      renderCartUpdates();
+      
+      // Auto-open drawer presentation mechanism to give immediate user response feedback
+      const drawer = document.getElementById('cart-drawer');
+      if (drawer.classList.contains('translate-x-full')) {
+        toggleCartDrawer();
+      }
+    }
+
+    // Remove targeted item structure instance
+    function removeCartItem(id) {
+      cart = cart.filter(item => item.id !== id);
+      renderCartUpdates();
+    }
+
+    // Refresh layout view presentation nodes
+    function renderCartUpdates() {
+      const counterBadge = document.getElementById('cart-counter');
+      const drawerCount = document.getElementById('drawer-item-count');
+      const container = document.getElementById('cart-items-container');
+      const subtotalDisplay = document.getElementById('cart-subtotal-display');
+
+      // Total quantity sum calculations
+      const totalQty = cart.reduce((acc, curr) => acc + curr.qty, 0);
+      counterBadge.innerText = totalQty;
+      drawerCount.innerText = totalQty;
+
+      // Reset item inner node layout loops
+      container.innerHTML = '';
+
+      if (cart.length === 0) {
+        container.innerHTML = `
+          <div class="flex flex-col items-center justify-center h-48 text-center">
+            <span class="text-3xl mb-2">📦</span>
+            <p class="text-xs text-brand-textMuted font-medium">Your shopping cart is currently empty.</p>
+          </div>
+        `;
+        subtotalDisplay.innerText = 'KES 0';
+        return;
+      }
+
+      let subtotal = 0;
+
+      cart.forEach(item => {
+        const costSum = item.price * item.qty;
+        subtotal += costSum;
+
+        const row = document.createElement('div');
+        row.className = 'flex gap-4 p-3 border border-slate-100 rounded-2xl bg-[#f8fafc]/60 items-center justify-between';
+        row.innerHTML = `
+          <div class="flex-1 min-w-0">
+            <h4 class="text-xs font-bold text-brand-textDark truncate">${item.name}</h4>
+            <p class="text-[11px] text-brand-textMuted mt-0.5">KES ${item.price.toLocaleString()} &times; ${item.qty}</p>
+          </div>
+          <div class="flex items-center gap-3">
+            <span class="text-xs font-black text-brand-textDark">KES ${costSum.toLocaleString()}</span>
+            <button onclick="removeCartItem(${item.id})" class="text-slate-400 hover:text-rose-500 font-bold text-sm px-1" aria-label="Remove item">&times;</button>
+          </div>
+        `;
+        container.appendChild(row);
+      });
+
+      subtotalDisplay.innerText = `KES ${subtotal.toLocaleString()}`;
+    }
+
+    // Run dynamic view binding cycle optimization upon loading sequence
+    window.addEventListener('DOMContentLoaded', () => {
+      renderCartUpdates();
+    });
   </script>
 </body>
 </html>

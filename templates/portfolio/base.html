@@ -3,11 +3,380 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>{% block title %}Zurich Dev — Web Solutions{% endblock %}</title>
+  <title>{% block title %}Zurich Dev — Web Solutions & App Templates{% endblock %}</title>
   {% load static %}
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- Fallback local stylesheet kept for production Django setup -->
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+  <style>
+    :root {
+      --color-brand-green: #3f4a3e; /* Sage/Olive forest shade */
+      --color-brand-dark: #242c23;  /* Deep earthy charcoal */
+      --color-bg-light: #d6dbd5;    /* Pristine misty green/grey background */
+      --color-bg-ivory: #e9ebe8;    /* Light ash/cream block tone */
+      --color-white: #ffffff;
+      --color-text-dark: #2d352c;
+      --color-text-muted: #5e685c;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--color-bg-light);
+      color: var(--color-text-dark);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    .navbar {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 2.5rem 6%;
+      z-index: 100;
+      background: transparent;
+    }
+
+    .brand {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      color: var(--color-white);
+      text-decoration: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .brand:hover {
+      opacity: 0.8;
+    }
+
+    .brand span {
+      font-weight: 300;
+      font-style: italic;
+      text-transform: none;
+      letter-spacing: 0.05em;
+      margin-left: 0.2rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 3rem;
+    }
+
+    .nav-links a {
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--color-white);
+      text-decoration: none;
+      opacity: 0.85;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      opacity: 1;
+      letter-spacing: 0.25em;
+    }
+
+    .btn-capsule {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.75rem 2.2rem;
+      border: 1px solid var(--color-white);
+      background: transparent;
+      color: var(--color-white);
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      border-radius: 9999px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .btn-capsule:hover {
+      background-color: var(--color-white);
+      color: var(--color-brand-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    }
+
+    .btn-capsule-dark {
+      border-color: var(--color-brand-dark);
+      color: var(--color-brand-dark);
+    }
+
+    .btn-capsule-dark:hover {
+      background-color: var(--color-brand-dark);
+      color: var(--color-white);
+    }
+
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      padding: 0 10%;
+      background: linear-gradient(to bottom, rgba(36, 44, 35, 0.35) 0%, rgba(36, 44, 35, 0.85) 100%), 
+                  url('https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=1800') center/cover no-repeat;
+      color: var(--color-white);
+    }
+
+    .hero-content {
+      max-width: 700px;
+      margin-top: 4rem;
+    }
+
+    .hero-subtitle {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      font-style: italic;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.8rem;
+      opacity: 0.95;
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(3.5rem, 8vw, 6.2rem);
+      font-weight: 400;
+      line-height: 1.05;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 2rem;
+    }
+
+    .hero-desc {
+      font-size: 0.95rem;
+      font-weight: 300;
+      line-height: 1.8;
+      opacity: 0.85;
+      margin-bottom: 2.5rem;
+      max-width: 520px;
+    }
+
+    .section-editorial {
+      padding: 8rem 6%;
+      background-color: var(--color-bg-light);
+      text-align: center;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--color-brand-dark);
+      margin-bottom: 5rem;
+    }
+
+    .column-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3rem;
+      max-width: 1300px;
+      margin: 0 auto;
+    }
+
+    .column-card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .column-image-wrapper {
+      width: 100%;
+      aspect-ratio: 1.05;
+      overflow: hidden;
+      margin-bottom: 2rem;
+      box-shadow: 0 15px 35px rgba(36, 44, 35, 0.1);
+    }
+
+    .column-image-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .column-card:hover .column-image-wrapper img {
+      transform: scale(1.06);
+    }
+
+    .column-label {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-brand-dark);
+      margin-bottom: 1.5rem;
+    }
+
+    .section-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background-color: var(--color-bg-light);
+      min-height: 700px;
+    }
+
+    .split-image {
+      width: 100%;
+      height: 100%;
+      min-height: 500px;
+      object-fit: cover;
+    }
+
+    .split-content-panel {
+      background-color: var(--color-bg-ivory);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 12% 15%;
+    }
+
+    .panel-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--color-brand-dark);
+      margin-bottom: 1.8rem;
+    }
+
+    .panel-text {
+      font-size: 0.95rem;
+      color: var(--color-text-muted);
+      line-height: 1.9;
+      margin-bottom: 1.5rem;
+      font-weight: 300;
+    }
+
+    .panel-text:last-of-type {
+      margin-bottom: 3rem;
+    }
+
+    .section-dark-split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      background-color: var(--color-brand-green);
+      color: var(--color-white);
+      min-height: 700px;
+    }
+
+    .dark-content-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 12% 15%;
+    }
+
+    .dark-panel-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 3.5vw, 2.8rem);
+      font-weight: 400;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      line-height: 1.2;
+      color: var(--color-white);
+      margin-bottom: 2rem;
+    }
+
+    .dark-panel-text {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.9;
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+
+    .footer {
+      background-color: var(--color-brand-dark);
+      color: rgba(255, 255, 255, 0.6);
+      text-align: center;
+      padding: 5rem 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.85rem;
+      letter-spacing: 0.05em;
+    }
+
+    .footer p {
+      margin-bottom: 1rem;
+    }
+
+    .footer p:last-child {
+      margin-bottom: 0;
+      font-size: 0.8rem;
+      opacity: 0.8;
+      letter-spacing: 0.1em;
+    }
+
+    @media (max-width: 1024px) {
+      .column-grid {
+        grid-template-columns: 1fr;
+        gap: 5rem;
+        max-width: 500px;
+      }
+      .section-split {
+        grid-template-columns: 1fr;
+      }
+      .section-dark-split {
+        grid-template-columns: 1fr;
+      }
+      .split-image-container {
+        order: -1;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .navbar {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 2rem 1rem;
+      }
+      .nav-links {
+        gap: 1.5rem;
+      }
+      .hero {
+        padding: 0 5%;
+        text-align: center;
+        justify-content: center;
+      }
+      .hero-content {
+        margin-top: 6rem;
+      }
+      .hero-desc {
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -21,11 +390,91 @@
     </div>
   </nav>
 
-  {% block content %}{% endblock %}
+  {% block content %}
+  
+  <!-- HERO SECTION: Styled like Luxury Property Presentation Template for Real Estate Professionals.jpg -->
+  <section class="hero">
+    <div class="hero-content">
+      <p class="hero-subtitle">It's time to</p>
+      <h1 class="hero-title">Deploy Gold</h1>
+      <p class="hero-desc">
+        Looking for state-of-the-art web systems, premium portals, and highly convertible landing templates? We build and package ultra-luxury custom digital assets designed to scale.
+      </p>
+      <a href="#" class="btn-capsule">Our Templates</a>
+    </div>
+  </section>
+
+  <!-- SECTION 1: ENGINEERED TO PERFORM (Three Columns Showcase) -->
+  <section class="section-editorial">
+    <h2 class="section-title">Engineered to Perform</h2>
+    
+    <div class="column-grid">
+      <!-- Column 1: SaaS Portals -->
+      <div class="column-card">
+        <div class="column-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?q=80&w=600" alt="Clean Premium Code on High Contrast Monitor" />
+        </div>
+        <h3 class="column-label">SaaS Portals</h3>
+        <a href="#" class="btn-capsule btn-capsule-dark">Explore Systems</a>
+      </div>
+
+      <!-- Column 2: E-Commerce -->
+      <div class="column-card">
+        <div class="column-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600" alt="Modern Minimal Digital Business Design Board" />
+        </div>
+        <h3 class="column-label">E-Commerce</h3>
+        <a href="#" class="btn-capsule btn-capsule-dark">Analyze Layouts</a>
+      </div>
+
+      <!-- Column 3: Custom APIs -->
+      <div class="column-card">
+        <div class="column-image-wrapper">
+          <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=600" alt="Futuristic abstract dark servers" />
+        </div>
+        <h3 class="column-label">Custom APIs</h3>
+        <a href="#" class="btn-capsule btn-capsule-dark">Review Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2: A PLACE TO BUILD (Asymmetric Split Screen) -->
+  <section class="section-split">
+    <div>
+      <img src="https://images.unsplash.com/photo-1542744094-3a31f103e35f?q=80&w=800" alt="Collaborative corporate space mockup" class="split-image" />
+    </div>
+    <div class="split-content-panel">
+      <h2 class="panel-title">A Standard of Beauty</h2>
+      <p class="panel-text">
+        It is no secret that beautifully engineered application architectures yield significantly higher conversion rates. Our bespoke solutions merge modern aesthetics with elite execution, turning simple users into permanent patrons.
+      </p>
+      <p class="panel-text">
+        We understand the dynamic digital landscape better than anyone else. Whether you seek to deploy a lightning-quick SaaS dashboard or a completely bespoke corporate application, we customize every file down to the line.
+      </p>
+      <div>
+        <a href="#" class="btn-capsule btn-capsule-dark">Learn More</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: BORN TO DEPLOY (Dark green contrast split) -->
+  <section class="section-dark-split">
+    <div class="dark-content-panel">
+      <h2 class="dark-panel-title">Bespoke<br/>For Your Brand</h2>
+      <p class="dark-panel-text">
+        We are a curated team of digital developers who spent years engineering for high-net-worth brands globally. One element became clear: businesses deserved top-tier architectural performance without sacrificing beautiful artistic curation. Our headquarters, founded in 2018, meticulously codes and refines gorgeous digital systems ready to take your venture to scale.
+      </p>
+    </div>
+    <div class="split-image-container">
+      <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=800" alt="Earthy minimalist creative meeting workspace" class="split-image" />
+    </div>
+  </section>
+
+  {% endblock %}
 
   <!-- FOOTER -->
   <footer class="footer">
-    <p>© 2025 ZurichDev — Professional Web Solutions for Kenyan Businesses</p>
+    <p>© 2026 ZurichDev — Professional Web Solutions for Kenyan & Global Businesses</p>
     <p>📞 +254 700 000 000 &nbsp;|&nbsp; 📧 zurich@email.com</p>
   </footer>
 

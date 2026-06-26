@@ -106,3 +106,5 @@ body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-ser
   .nav-links { display: none; }
   .template-grid { grid-template-columns: 1fr; }
 }
+
+

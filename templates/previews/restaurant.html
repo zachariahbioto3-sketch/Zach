@@ -3,232 +3,246 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Savanna Grill — Fine Dining</title>
+  <title>StreetFood - Italian Cuisine</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   <script>
     tailwind.config = {
       theme: {
         extend: {
           colors: {
-            gold: '#c9a84c',
-            dark: '#0d0d0d',
-            card: '#1a1a1a',
-            surface: '#111111',
+            brand: {
+              orange: '#fb923c', // Tailwind orange-400
+              yellow: '#fbbf24', // Tailwind amber-400
+              dark: '#1e293b',   // Tailwind slate-800
+              light: '#f3f4f6',  // Tailwind gray-100
+              accent: '#facc15', // Tailwind yellow-400
+            },
+            bgTheme: '#e6dedb', // The specific background color from the image
           },
           fontFamily: {
-            sans: ['Inter', 'sans-serif'],
+            sans: ['Nunito', 'sans-serif'],
+          },
+          borderRadius: {
+            '4xl': '2rem',
+            '5xl': '2.5rem',
+            '6xl': '3rem',
           }
         }
       }
     }
   </script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
-    .font-playfair { font-family: 'Playfair Display', serif; }
-    .hero-bg { background: linear-gradient(to bottom, rgba(13,13,13,0.3) 0%, rgba(13,13,13,0.85) 100%), url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1400&q=80') center/cover no-repeat; }
-    .menu-card:hover .menu-overlay { opacity: 1; }
-    .menu-overlay { transition: opacity 0.3s; }
+    body {
+      background-color: #e6dedb;
+      overflow-x: hidden;
+    }
+    
+    .hero-bg-shape {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 55%;
+      height: 100vh;
+      background-color: #d8c8c2;
+      border-bottom-left-radius: 50%;
+      z-index: -1;
+    }
+
+    .dish-card {
+      background: white;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .dish-card:hover {
+      transform: translateY(-5px);
+    }
+
+    /* Floating elements animations */
+    @keyframes float {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-10px) rotate(5deg); }
+      100% { transform: translateY(0px) rotate(0deg); }
+    }
+    .floating-pizza {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    /* Decorative circle rings for images */
+    .img-ring-wrapper {
+      position: relative;
+      display: inline-block;
+      border-radius: 50%;
+      padding: 15px;
+      background: white;
+    }
+    .img-ring-wrapper::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      border: 8px solid #1e293b; /* Dark ring */
+      border-radius: 50%;
+    }
+    .img-ring-wrapper-light::before {
+      border: 8px solid white; /* Light ring for about section */
+    }
+    .img-ring-wrapper-light {
+      background: #e6dedb;
+    }
   </style>
 </head>
-<body class="bg-dark text-white font-sans">
+<body class="text-brand-dark font-sans antialiased relative">
 
-  <!-- PROMO BAR -->
-  <div class="bg-gold text-black text-center text-xs font-semibold py-2 tracking-wide">
-    🍽️ Reserve now and get a complimentary dessert — Valid this month only
-  </div>
+  <div class="hero-bg-shape hidden lg:block"></div>
+  
+  <!-- Floating decorative images (hidden on smaller screens to avoid clutter) -->
+  <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?ixlib=rb-1.2.1&auto=format&fit=crop&w=200&q=80" alt="Pizza slice" class="absolute hidden lg:block w-32 right-1/4 top-1/3 floating-pizza z-10 drop-shadow-xl rounded-full" style="clip-path: polygon(50% 0%, 0% 100%, 100% 100%); object-fit: cover;">
+  <img src="https://images.unsplash.com/photo-1546069901-ba9599a7e63c?ixlib=rb-1.2.1&auto=format&fit=crop&w=150&q=80" alt="Salad leaves" class="absolute hidden lg:block w-48 left-[-50px] top-[40%] opacity-30 z-[-1] rounded-full">
 
-  <!-- NAVBAR -->
-  <nav class="sticky top-0 z-50 bg-dark/95 backdrop-blur border-b border-white/10 px-6 lg:px-16 py-4 flex justify-between items-center">
-    <div class="font-playfair text-2xl font-bold">Savanna<span class="text-gold">Grill</span></div>
-    <div class="hidden md:flex gap-8 text-sm text-white/60">
-      <a href="#" class="hover:text-white transition">Home</a>
-      <a href="#menu" class="hover:text-white transition">Menu</a>
-      <a href="#about" class="hover:text-white transition">About</a>
-      <a href="#gallery" class="hover:text-white transition">Gallery</a>
-      <a href="#contact" class="hover:text-white transition">Contact</a>
+  <nav class="container mx-auto px-6 py-6 flex justify-between items-center relative z-20">
+    <!-- Logo placeholder -->
+    <div class="flex items-center gap-2">
+      <div class="w-10 h-10 bg-brand-orange text-white rounded-full flex items-center justify-center font-bold text-xl">🔥</div>
+      <div class="flex flex-col">
+        <span class="font-black text-sm uppercase leading-none tracking-widest">StreetFood</span>
+        <span class="text-[10px] uppercase text-gray-500 tracking-wider">Cuisine</span>
+      </div>
     </div>
-    <a href="#reserve" class="bg-gold text-black text-sm font-bold px-5 py-2 rounded-full hover:opacity-90 transition">Reserve a Table</a>
+
+    <!-- Links -->
+    <div class="hidden md:flex gap-8 font-bold text-gray-800">
+      <a href="#" class="hover:text-brand-orange transition">Home</a>
+      <a href="#" class="hover:text-brand-orange transition">Drinks</a>
+      <a href="#" class="hover:text-brand-orange transition">Menu</a>
+      <a href="#" class="hover:text-brand-orange transition">About Us</a>
+    </div>
+
+    <!-- Social Icons -->
+    <div class="hidden md:flex gap-4 text-gray-600">
+      <a href="#" class="hover:text-brand-orange transition"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg></a>
+      <a href="#" class="hover:text-brand-orange transition"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+      <a href="#" class="hover:text-brand-orange transition"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+    </div>
   </nav>
 
-  <!-- HERO -->
-  <section class="hero-bg min-h-screen flex items-center px-6 lg:px-16">
-    <div class="max-w-2xl">
-      <p class="text-gold text-sm font-semibold tracking-widest uppercase mb-4">Fine Dining Experience</p>
-      <h1 class="font-playfair text-5xl lg:text-7xl font-bold leading-tight mb-6">
-        Where Every Meal <br/>Tells a <span class="text-gold">Story</span>
-      </h1>
-      <p class="text-white/70 text-lg mb-8 max-w-lg">
-        Experience the finest African-inspired cuisine in an atmosphere of warmth and elegance. From farm to table — every dish crafted with passion.
+  <section class="container mx-auto px-6 py-12 lg:py-24 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center min-h-[80vh] relative z-10">
+    
+    <!-- Hero Text content -->
+    <div class="max-w-xl">
+      <h2 class="text-3xl md:text-4xl font-bold mb-2">italian</h2>
+      <h1 class="text-6xl md:text-8xl font-black mb-6 tracking-tight text-brand-dark" style="font-family: 'Nunito', sans-serif;">Cuisine</h1>
+      
+      <p class="text-gray-700 text-lg md:text-xl leading-relaxed mb-8 font-medium">
+        Italian cuisine is known for its simplicity, fresh ingredients, and regional specialties. Italian cuisine also emphasizes wine, cheese, cold cuts, and coffee.
       </p>
-      <div class="flex gap-4 flex-wrap">
-        <a href="#menu" class="bg-gold text-black font-bold px-8 py-3 rounded-full hover:opacity-90 transition">Explore Menu</a>
-        <a href="#reserve" class="border border-white/30 text-white font-semibold px-8 py-3 rounded-full hover:border-gold hover:text-gold transition">Book a Table</a>
+      
+      <div class="flex gap-4">
+        <a href="#menu" class="bg-brand-orange text-white font-bold py-3 px-8 rounded-full hover:bg-orange-500 transition shadow-lg shadow-orange-500/30">Our Menu</a>
+        <a href="#drinks" class="bg-brand-dark text-white font-bold py-3 px-8 rounded-full hover:bg-gray-800 transition shadow-lg shadow-gray-900/30">Our Drinks</a>
       </div>
+    </div>
 
-      <!-- STATS -->
-      <div class="flex gap-10 mt-14">
-        <div>
-          <div class="font-playfair text-3xl font-bold text-gold">12+</div>
-          <div class="text-white/50 text-sm mt-1">Years of Excellence</div>
-        </div>
-        <div>
-          <div class="font-playfair text-3xl font-bold text-gold">80+</div>
-          <div class="text-white/50 text-sm mt-1">Signature Dishes</div>
-        </div>
-        <div>
-          <div class="font-playfair text-3xl font-bold text-gold">4.9★</div>
-          <div class="text-white/50 text-sm mt-1">Guest Rating</div>
-        </div>
+    <!-- Hero Image -->
+    <div class="relative flex justify-center lg:justify-end">
+      <!-- Decorative small images near hero -->
+      <img src="https://images.unsplash.com/photo-1551024601-bec78aea704b?ixlib=rb-1.2.1&auto=format&fit=crop&w=100&q=80" alt="Drink" class="absolute top-[-40px] left-[-20px] w-20 rounded-full shadow-lg z-20">
+      
+      <!-- Main Hero Dish Image with Rings -->
+      <div class="img-ring-wrapper">
+        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" 
+             alt="Italian Salad Bowl" 
+             class="w-full max-w-[400px] h-[400px] object-cover rounded-full shadow-2xl relative z-10">
       </div>
     </div>
   </section>
 
-  <!-- TRUST BAR -->
-  <div class="bg-surface border-y border-white/10 px-6 lg:px-16 py-5 flex flex-wrap gap-8 justify-center text-sm text-white/50">
-    <span>🕐 Open Daily: 11am – 11pm</span>
-    <span>📍 Westlands, Nairobi</span>
-    <span>📞 +254 700 123 456</span>
-    <span>🅿️ Free Parking Available</span>
-    <span>🌿 Farm-to-Table Ingredients</span>
-  </div>
-
-  <!-- MENU SECTION -->
-  <section id="menu" class="px-6 lg:px-16 py-20">
-    <div class="text-center mb-14">
-      <p class="text-gold text-xs font-semibold tracking-widest uppercase mb-3">Crafted with Love</p>
-      <h2 class="font-playfair text-4xl font-bold">Our Signature Menu</h2>
-      <p class="text-white/50 mt-3 max-w-md mx-auto">Each dish is a journey — inspired by the rich flavours of East Africa</p>
-    </div>
-
-    <!-- TABS -->
-    <div class="flex gap-3 flex-wrap justify-center mb-10">
-      <button class="bg-gold text-black text-sm font-bold px-5 py-2 rounded-full">Starters</button>
-      <button class="border border-white/20 text-white/60 text-sm px-5 py-2 rounded-full hover:border-gold hover:text-gold transition">Mains</button>
-      <button class="border border-white/20 text-white/60 text-sm px-5 py-2 rounded-full hover:border-gold hover:text-gold transition">Grills</button>
-      <button class="border border-white/20 text-white/60 text-sm px-5 py-2 rounded-full hover:border-gold hover:text-gold transition">Desserts</button>
-      <button class="border border-white/20 text-white/60 text-sm px-5 py-2 rounded-full hover:border-gold hover:text-gold transition">Drinks</button>
-    </div>
-
-    <!-- MENU GRID -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-      <!-- MENU ITEM -->
-      <div class="bg-card border border-white/10 rounded-2xl overflow-hidden menu-card relative">
-        <div class="h-48 bg-white/5 flex items-center justify-center text-6xl relative">
-          🥗
-          <div class="menu-overlay absolute inset-0 bg-gold/80 flex items-center justify-center opacity-0">
-            <span class="text-black font-bold text-sm">View Details</span>
-          </div>
+  <section class="container mx-auto px-6 py-20 relative z-10">
+    <h3 class="text-2xl md:text-3xl font-black mb-10">Popular Dishes</h3>
+    
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <!-- Dish 1 -->
+      <div class="dish-card relative pb-4">
+        <div class="h-48 rounded-t-[20px] overflow-hidden mb-4">
+           <!-- Rounded bottom cut-out effect simulated with border-radius -->
+          <img src="https://images.unsplash.com/photo-1623428187969-5da2dcea5ebf?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Apple Spratt" class="w-full h-full object-cover rounded-b-[40px]">
         </div>
-        <div class="p-5">
-          <div class="flex justify-between items-start mb-2">
-            <h3 class="font-semibold text-base">Nyama Choma Salad</h3>
-            <span class="text-gold font-bold text-sm">KES 850</span>
+        <div class="px-5 text-center relative z-10 -mt-10 bg-white mx-4 rounded-xl pt-4">
+          <h4 class="font-bold text-lg mb-2">Apple Spratt</h4>
+          <div class="flex items-center justify-center gap-1 text-gray-500 text-sm mb-3">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            10Mins
           </div>
-          <p class="text-white/50 text-sm">Grilled beef strips over fresh greens, cherry tomatoes & lemon vinaigrette</p>
-          <div class="flex gap-2 mt-3">
-            <span class="bg-white/5 text-white/40 text-xs px-3 py-1 rounded-full">Starter</span>
-            <span class="bg-green-900/40 text-green-400 text-xs px-3 py-1 rounded-full">Halal</span>
+          <div class="flex justify-between items-center mt-4">
+            <div class="flex text-brand-yellow text-sm">
+              ★★★★<span class="text-gray-300">★</span>
+            </div>
+            <a href="#" class="text-xs font-bold uppercase hover:text-brand-orange transition">Order Now</a>
           </div>
         </div>
       </div>
 
-      <div class="bg-card border border-white/10 rounded-2xl overflow-hidden menu-card relative">
-        <div class="h-48 bg-white/5 flex items-center justify-center text-6xl relative">
-          🍖
-          <span class="absolute top-3 left-3 bg-gold text-black text-xs font-bold px-3 py-1 rounded-full">Chef's Pick</span>
-          <div class="menu-overlay absolute inset-0 bg-gold/80 flex items-center justify-center opacity-0">
-            <span class="text-black font-bold text-sm">View Details</span>
-          </div>
+      <!-- Dish 2 -->
+      <div class="dish-card relative pb-4">
+        <div class="h-48 rounded-t-[20px] overflow-hidden mb-4">
+          <img src="https://images.unsplash.com/photo-1548943487-a2e4f43b4850?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Red-Lentils" class="w-full h-full object-cover rounded-b-[40px]">
         </div>
-        <div class="p-5">
-          <div class="flex justify-between items-start mb-2">
-            <h3 class="font-semibold text-base">Signature Ribeye Grill</h3>
-            <span class="text-gold font-bold text-sm">KES 3,200</span>
+        <div class="px-5 text-center relative z-10 -mt-10 bg-white mx-4 rounded-xl pt-4">
+          <h4 class="font-bold text-lg mb-2">Red-Lentils</h4>
+          <div class="flex items-center justify-center gap-1 text-gray-500 text-sm mb-3">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            10Mins
           </div>
-          <p class="text-white/50 text-sm">500g dry-aged ribeye, herb butter, roasted garlic mash & seasonal greens</p>
-          <div class="flex gap-2 mt-3">
-            <span class="bg-white/5 text-white/40 text-xs px-3 py-1 rounded-full">Main</span>
-            <span class="bg-yellow-900/40 text-yellow-400 text-xs px-3 py-1 rounded-full">Bestseller</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="bg-card border border-white/10 rounded-2xl overflow-hidden menu-card relative">
-        <div class="h-48 bg-white/5 flex items-center justify-center text-6xl relative">
-          🍤
-          <div class="menu-overlay absolute inset-0 bg-gold/80 flex items-center justify-center opacity-0">
-            <span class="text-black font-bold text-sm">View Details</span>
-          </div>
-        </div>
-        <div class="p-5">
-          <div class="flex justify-between items-start mb-2">
-            <h3 class="font-semibold text-base">Coastal Prawns</h3>
-            <span class="text-gold font-bold text-sm">KES 1,800</span>
-          </div>
-          <p class="text-white/50 text-sm">Tiger prawns in coconut-lemongrass broth with coconut rice & kachumbari</p>
-          <div class="flex gap-2 mt-3">
-            <span class="bg-white/5 text-white/40 text-xs px-3 py-1 rounded-full">Seafood</span>
+          <div class="flex justify-between items-center mt-4">
+            <div class="flex text-brand-yellow text-sm">
+              ★★★★<span class="text-gray-300">★</span>
+            </div>
+            <a href="#" class="text-xs font-bold uppercase hover:text-brand-orange transition">Order Now</a>
           </div>
         </div>
       </div>
 
-      <div class="bg-card border border-white/10 rounded-2xl overflow-hidden menu-card relative">
-        <div class="h-48 bg-white/5 flex items-center justify-center text-6xl relative">
-          🍛
-          <div class="menu-overlay absolute inset-0 bg-gold/80 flex items-center justify-center opacity-0">
-            <span class="text-black font-bold text-sm">View Details</span>
-          </div>
+      <!-- Dish 3 -->
+      <div class="dish-card relative pb-4">
+        <div class="h-48 rounded-t-[20px] overflow-hidden mb-4">
+          <img src="https://images.unsplash.com/photo-1621996346565-e3dbc646d9a9?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Spaghetti" class="w-full h-full object-cover rounded-b-[40px]">
         </div>
-        <div class="p-5">
-          <div class="flex justify-between items-start mb-2">
-            <h3 class="font-semibold text-base">Kenyan Pilau Bowl</h3>
-            <span class="text-gold font-bold text-sm">KES 950</span>
+        <div class="px-5 text-center relative z-10 -mt-10 bg-white mx-4 rounded-xl pt-4">
+          <h4 class="font-bold text-lg mb-2">Spaghetti</h4>
+          <div class="flex items-center justify-center gap-1 text-gray-500 text-sm mb-3">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            10Mins
           </div>
-          <p class="text-white/50 text-sm">Aromatic spiced rice, slow-cooked beef, boiled eggs & raita on the side</p>
-          <div class="flex gap-2 mt-3">
-            <span class="bg-white/5 text-white/40 text-xs px-3 py-1 rounded-full">Main</span>
-            <span class="bg-green-900/40 text-green-400 text-xs px-3 py-1 rounded-full">Halal</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="bg-card border border-white/10 rounded-2xl overflow-hidden menu-card relative">
-        <div class="h-48 bg-white/5 flex items-center justify-center text-6xl relative">
-          🍰
-          <div class="menu-overlay absolute inset-0 bg-gold/80 flex items-center justify-center opacity-0">
-            <span class="text-black font-bold text-sm">View Details</span>
-          </div>
-        </div>
-        <div class="p-5">
-          <div class="flex justify-between items-start mb-2">
-            <h3 class="font-semibold text-base">Passion Fruit Cheesecake</h3>
-            <span class="text-gold font-bold text-sm">KES 650</span>
-          </div>
-          <p class="text-white/50 text-sm">Creamy baked cheesecake with fresh passion fruit coulis & mint cream</p>
-          <div class="flex gap-2 mt-3">
-            <span class="bg-white/5 text-white/40 text-xs px-3 py-1 rounded-full">Dessert</span>
-            <span class="bg-pink-900/40 text-pink-400 text-xs px-3 py-1 rounded-full">Vegetarian</span>
+          <div class="flex justify-between items-center mt-4">
+            <div class="flex text-brand-yellow text-sm">
+              ★★★★<span class="text-gray-300">★</span>
+            </div>
+            <a href="#" class="text-xs font-bold uppercase hover:text-brand-orange transition">Order Now</a>
           </div>
         </div>
       </div>
 
-      <div class="bg-card border border-white/10 rounded-2xl overflow-hidden menu-card relative">
-        <div class="h-48 bg-white/5 flex items-center justify-center text-6xl relative">
-          🥂
-          <div class="menu-overlay absolute inset-0 bg-gold/80 flex items-center justify-center opacity-0">
-            <span class="text-black font-bold text-sm">View Details</span>
-          </div>
+      <!-- Dish 4 -->
+      <div class="dish-card relative pb-4">
+        <div class="h-48 rounded-t-[20px] overflow-hidden mb-4">
+          <img src="https://images.unsplash.com/photo-1528207776546-365bb710ee93?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Pancake" class="w-full h-full object-cover rounded-b-[40px]">
         </div>
-        <div class="p-5">
-          <div class="flex justify-between items-start mb-2">
-            <h3 class="font-semibold text-base">Savanna Mocktail</h3>
-            <span class="text-gold font-bold text-sm">KES 450</span>
+        <div class="px-5 text-center relative z-10 -mt-10 bg-white mx-4 rounded-xl pt-4">
+          <h4 class="font-bold text-lg mb-2">Pancake</h4>
+          <div class="flex items-center justify-center gap-1 text-gray-500 text-sm mb-3">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            10Mins
           </div>
-          <p class="text-white/50 text-sm">House blend of tamarind, hibiscus, ginger & fresh mint over crushed ice</p>
-          <div class="flex gap-2 mt-3">
-            <span class="bg-white/5 text-white/40 text-xs px-3 py-1 rounded-full">Drink</span>
-            <span class="bg-blue-900/40 text-blue-400 text-xs px-3 py-1 rounded-full">Non-Alcoholic</span>
+          <div class="flex justify-between items-center mt-4">
+            <div class="flex text-brand-yellow text-sm">
+              ★★★★<span class="text-gray-300">★</span>
+            </div>
+            <a href="#" class="text-xs font-bold uppercase hover:text-brand-orange transition">Order Now</a>
           </div>
         </div>
       </div>
@@ -236,166 +250,131 @@
     </div>
   </section>
 
-  <!-- ABOUT SECTION -->
-  <section id="about" class="bg-surface border-y border-white/10 px-6 lg:px-16 py-20">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+  <section class="container mx-auto px-6 py-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+      
+      <!-- About Image with Rings -->
+      <div class="flex justify-center md:justify-start">
+        <div class="img-ring-wrapper img-ring-wrapper-light p-4">
+          <img src="https://images.unsplash.com/photo-1563805042-7684c8a9e9cb?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" 
+               alt="Macarons and Coffee" 
+               class="w-[250px] h-[250px] lg:w-[300px] lg:h-[300px] object-cover rounded-full shadow-xl">
+        </div>
+      </div>
+
+      <!-- About Content -->
       <div>
-        <p class="text-gold text-xs font-semibold tracking-widest uppercase mb-4">Our Story</p>
-        <h2 class="font-playfair text-4xl font-bold mb-6 leading-tight">Born from the Heart of East Africa</h2>
-        <p class="text-white/60 mb-5 leading-relaxed">Founded in 2012, Savanna Grill began as a small family dream — to share the bold, vibrant flavours of East African cuisine with the world. Today, we're Nairobi's most celebrated fine dining destination.</p>
-        <p class="text-white/60 mb-8 leading-relaxed">Every ingredient is sourced from local farms. Every recipe honours tradition while embracing modern culinary technique. When you dine with us, you taste the land itself.</p>
-        <div class="grid grid-cols-2 gap-6">
-          <div class="bg-card border border-white/10 rounded-xl p-5">
-            <div class="text-gold text-2xl font-bold font-playfair">100%</div>
-            <div class="text-white/50 text-sm mt-1">Locally Sourced</div>
-          </div>
-          <div class="bg-card border border-white/10 rounded-xl p-5">
-            <div class="text-gold text-2xl font-bold font-playfair">5★</div>
-            <div class="text-white/50 text-sm mt-1">TripAdvisor Rated</div>
-          </div>
-        </div>
-      </div>
-      <div class="grid grid-cols-2 gap-4">
-        <div class="bg-white/5 rounded-2xl aspect-square flex items-center justify-center text-6xl">🍽️</div>
-        <div class="bg-white/5 rounded-2xl aspect-square flex items-center justify-center text-6xl mt-8">👨‍🍳</div>
-        <div class="bg-white/5 rounded-2xl aspect-square flex items-center justify-center text-6xl">🌿</div>
-        <div class="bg-white/5 rounded-2xl aspect-square flex items-center justify-center text-6xl mt-[-2rem]">🥩</div>
+        <h3 class="text-3xl md:text-4xl font-black mb-6">About us</h3>
+        <p class="text-gray-700 text-lg leading-relaxed mb-8 font-medium">
+          Welcome to our Italian culinary haven, where tradition meets innovation in every delicious bite. We are passionate about bringing you the rich, authentic flavors of Italy, crafted with love and the finest ingredients. Our team of dedicated chefs blends age-old recipes with modern techniques to create a dining experience that transports you straight to the heart of Italy.
+        </p>
+        <a href="#menu" class="inline-block bg-brand-dark text-white font-bold py-3 px-8 rounded-full hover:bg-gray-800 transition shadow-lg shadow-gray-900/30">Our Menu</a>
       </div>
     </div>
   </section>
 
-  <!-- TESTIMONIALS -->
-  <section class="px-6 lg:px-16 py-20">
-    <div class="text-center mb-14">
-      <p class="text-gold text-xs font-semibold tracking-widest uppercase mb-3">Guest Reviews</p>
-      <h2 class="font-playfair text-4xl font-bold">What Our Guests Say</h2>
+  <section id="menu" class="container mx-auto px-6 py-20">
+    
+    <!-- Menu Header & Categories -->
+    <div class="flex flex-col md:flex-row md:items-end gap-6 mb-12">
+      <h3 class="text-3xl md:text-4xl font-black">Menu</h3>
+      <div class="flex gap-4 md:gap-6 font-bold text-gray-500 overflow-x-auto pb-2">
+        <button class="text-brand-dark border-b-2 border-brand-dark pb-1 whitespace-nowrap">Dishes</button>
+        <button class="hover:text-brand-dark transition whitespace-nowrap">Salad</button>
+        <button class="hover:text-brand-dark transition whitespace-nowrap">Pasta</button>
+        <button class="hover:text-brand-dark transition whitespace-nowrap">Drinks</button>
+      </div>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="bg-card border border-white/10 rounded-2xl p-6">
-        <div class="text-gold text-sm mb-4">★★★★★</div>
-        <p class="text-white/60 text-sm leading-relaxed mb-5">"The ribeye was absolutely phenomenal. The atmosphere, the service, the food — everything was perfect. This is now my go-to for special occasions."</p>
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-sm">JM</div>
-          <div>
-            <div class="font-semibold text-sm">James Mwangi</div>
-            <div class="text-white/40 text-xs">Nairobi</div>
-          </div>
+
+    <!-- Menu Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      
+      <!-- Menu Item 1 -->
+      <div class="dish-card bg-white p-4">
+        <img src="https://images.unsplash.com/photo-1628840042765-356cda07504e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Cheese fries" class="w-full h-40 object-cover rounded-xl mb-4">
+        <div class="flex justify-between items-start mb-2">
+          <h4 class="font-bold text-lg leading-tight">Cheese fries</h4>
+          <div class="text-brand-yellow text-sm whitespace-nowrap">★★★★<span class="text-gray-300">★</span></div>
+        </div>
+        <div class="flex items-center gap-1 text-gray-500 text-sm mb-4">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          10Mins
+        </div>
+        <div class="flex justify-between items-center border-t border-gray-100 pt-4">
+          <span class="font-bold">₹500</span>
+          <a href="#" class="text-xs font-bold uppercase hover:text-brand-orange transition">Order Now</a>
         </div>
       </div>
-      <div class="bg-card border border-white/10 rounded-2xl p-6">
-        <div class="text-gold text-sm mb-4">★★★★★</div>
-        <p class="text-white/60 text-sm leading-relaxed mb-5">"I've dined across Nairobi but nothing comes close to the coastal prawns here. The coconut broth is out of this world. Highly recommend!"</p>
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-sm">SA</div>
-          <div>
-            <div class="font-semibold text-sm">Sophia Achieng</div>
-            <div class="text-white/40 text-xs">Mombasa</div>
-          </div>
+
+      <!-- Menu Item 2 -->
+      <div class="dish-card bg-white p-4">
+        <img src="https://images.unsplash.com/photo-1645112411341-6c4fd023714a?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="White Pasta" class="w-full h-40 object-cover rounded-xl mb-4">
+        <div class="flex justify-between items-start mb-2">
+          <h4 class="font-bold text-lg leading-tight">White Pasta</h4>
+          <div class="text-brand-yellow text-sm whitespace-nowrap">★★★★<span class="text-gray-300">★</span></div>
+        </div>
+        <div class="flex items-center gap-1 text-gray-500 text-sm mb-4">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          10Mins
+        </div>
+        <div class="flex justify-between items-center border-t border-gray-100 pt-4">
+          <span class="font-bold">₹600</span>
+          <a href="#" class="text-xs font-bold uppercase hover:text-brand-orange transition">Order Now</a>
         </div>
       </div>
-      <div class="bg-card border border-white/10 rounded-2xl p-6">
-        <div class="text-gold text-sm mb-4">★★★★☆</div>
-        <p class="text-white/60 text-sm leading-relaxed mb-5">"Booked for my anniversary — they surprised us with a complimentary dessert and candles. The attention to detail is unmatched. We will be back!"</p>
-        <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-gold font-bold text-sm">DK</div>
-          <div>
-            <div class="font-semibold text-sm">David Kiprotich</div>
-            <div class="text-white/40 text-xs">Eldoret</div>
-          </div>
+
+      <!-- Menu Item 3 -->
+      <div class="dish-card bg-white p-4">
+        <img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="French Salad" class="w-full h-40 object-cover rounded-xl mb-4">
+        <div class="flex justify-between items-start mb-2">
+          <h4 class="font-bold text-lg leading-tight">French Salad</h4>
+          <div class="text-brand-yellow text-sm whitespace-nowrap">★★★★<span class="text-gray-300">★</span></div>
+        </div>
+        <div class="flex items-center gap-1 text-gray-500 text-sm mb-4">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          10Mins
+        </div>
+        <div class="flex justify-between items-center border-t border-gray-100 pt-4">
+          <span class="font-bold">₹800</span>
+          <a href="#" class="text-xs font-bold uppercase hover:text-brand-orange transition">Order Now</a>
         </div>
       </div>
+
+      <!-- Menu Item 4 -->
+      <div class="dish-card bg-white p-4">
+        <img src="https://images.unsplash.com/photo-1481070555726-e2fe8357725c?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Sandwich" class="w-full h-40 object-cover rounded-xl mb-4">
+        <div class="flex justify-between items-start mb-2">
+          <h4 class="font-bold text-lg leading-tight">Sandwich</h4>
+          <div class="text-brand-yellow text-sm whitespace-nowrap">★★★★<span class="text-gray-300">★</span></div>
+        </div>
+        <div class="flex items-center gap-1 text-gray-500 text-sm mb-4">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+          10Mins
+        </div>
+        <div class="flex justify-between items-center border-t border-gray-100 pt-4">
+          <span class="font-bold">₹300</span>
+          <a href="#" class="text-xs font-bold uppercase hover:text-brand-orange transition">Order Now</a>
+        </div>
+      </div>
+      
+      <!-- Additional Menu Items to fill out the grid as seen in the bottom of the image -->
+      <div class="dish-card bg-white p-4">
+        <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Pancakes Berry" class="w-full h-40 object-cover rounded-xl mb-4">
+      </div>
+      <div class="dish-card bg-white p-4">
+        <img src="https://images.unsplash.com/photo-1558961363-fa8fdf82db35?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Cookies" class="w-full h-40 object-cover rounded-xl mb-4">
+      </div>
+      <div class="dish-card bg-white p-4">
+        <img src="https://images.unsplash.com/photo-1571115177098-24ec42ed204d?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Cake" class="w-full h-40 object-cover rounded-xl mb-4">
+      </div>
+      <div class="dish-card bg-white p-4">
+        <img src="https://images.unsplash.com/photo-1564834724105-918b73d1b9e0?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80" alt="Bruschetta" class="w-full h-40 object-cover rounded-xl mb-4">
+      </div>
+
     </div>
   </section>
 
-  <!-- RESERVATION SECTION -->
-  <section id="reserve" class="bg-surface border-y border-white/10 px-6 lg:px-16 py-20">
-    <div class="max-w-2xl mx-auto text-center">
-      <p class="text-gold text-xs font-semibold tracking-widest uppercase mb-3">Book Your Experience</p>
-      <h2 class="font-playfair text-4xl font-bold mb-4">Reserve a Table</h2>
-      <p class="text-white/50 mb-10">Secure your spot for an unforgettable dining experience. We recommend booking 48hrs in advance.</p>
-      <div class="bg-card border border-white/10 rounded-2xl p-8 text-left">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-          <div>
-            <label class="text-white/50 text-xs uppercase tracking-wider block mb-2">Full Name</label>
-            <input class="w-full bg-dark border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-gold transition" placeholder="John Mwangi" />
-          </div>
-          <div>
-            <label class="text-white/50 text-xs uppercase tracking-wider block mb-2">Phone Number</label>
-            <input class="w-full bg-dark border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-gold transition" placeholder="+254 700 000 000" />
-          </div>
-          <div>
-            <label class="text-white/50 text-xs uppercase tracking-wider block mb-2">Date</label>
-            <input type="date" class="w-full bg-dark border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-gold transition" />
-          </div>
-          <div>
-            <label class="text-white/50 text-xs uppercase tracking-wider block mb-2">Guests</label>
-            <select class="w-full bg-dark border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-gold transition">
-              <option>1 Guest</option>
-              <option>2 Guests</option>
-              <option>3-4 Guests</option>
-              <option>5-8 Guests</option>
-              <option>Large Group (9+)</option>
-            </select>
-          </div>
-        </div>
-        <div class="mt-5">
-          <label class="text-white/50 text-xs uppercase tracking-wider block mb-2">Special Requests</label>
-          <textarea class="w-full bg-dark border border-white/10 rounded-xl px-4 py-3 text-white text-sm outline-none focus:border-gold transition h-24 resize-none" placeholder="Anniversary setup, dietary needs, accessibility..."></textarea>
-        </div>
-        <button class="mt-6 w-full bg-gold text-black font-bold py-4 rounded-xl hover:opacity-90 transition text-sm tracking-wide">Confirm Reservation</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer class="px-6 lg:px-16 py-14 border-t border-white/10">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
-      <div class="md:col-span-2">
-        <div class="font-playfair text-2xl font-bold mb-3">Savanna<span class="text-gold">Grill</span></div>
-        <p class="text-white/40 text-sm leading-relaxed max-w-sm">Nairobi's finest African-inspired restaurant. A celebration of taste, culture, and togetherness — one plate at a time.</p>
-        <div class="flex gap-3 mt-5">
-          <div class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-xs hover:border-gold cursor-pointer transition">f</div>
-          <div class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-xs hover:border-gold cursor-pointer transition">ig</div>
-          <div class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-xs hover:border-gold cursor-pointer transition">tw</div>
-        </div>
-      </div>
-      <div>
-        <h4 class="text-xs font-semibold uppercase tracking-widest text-white/50 mb-4">Quick Links</h4>
-        <div class="space-y-2 text-sm text-white/40">
-          <a href="#" class="block hover:text-gold transition">Menu</a>
-          <a href="#" class="block hover:text-gold transition">Reservations</a>
-          <a href="#" class="block hover:text-gold transition">Private Events</a>
-          <a href="#" class="block hover:text-gold transition">Gift Cards</a>
-          <a href="#" class="block hover:text-gold transition">Careers</a>
-        </div>
-      </div>
-      <div>
-        <h4 class="text-xs font-semibold uppercase tracking-widest text-white/50 mb-4">Contact</h4>
-        <div class="space-y-2 text-sm text-white/40">
-          <p>📍 Westlands, Nairobi</p>
-          <p>📞 +254 700 123 456</p>
-          <p>✉️ hello@savannagrill.co.ke</p>
-          <p>🕐 Mon–Sun: 11am – 11pm</p>
-        </div>
-      </div>
-    </div>
-    <div class="border-t border-white/10 pt-6 flex flex-wrap justify-between text-xs text-white/30 gap-3">
-      <p>© 2025 SavannaGrill. All rights reserved.</p>
-      <p>🇰🇪 Proudly Kenyan</p>
-    </div>
-  </footer>
-
-  <!-- BOTTOM PADDING -->
-  <div class="h-16"></div>
-
-  <!-- SHOWCASE BAR -->
-  <div class="fixed bottom-0 left-0 right-0 z-50 bg-gold text-black flex justify-between items-center px-6 py-3 flex-wrap gap-3">
-    <p class="text-sm font-semibold">👀 Demo — <strong>Restaurant & Hotel Template</strong></p>
-    <div class="flex gap-3">
-      <a href="/" class="bg-black/20 text-black font-semibold text-sm px-4 py-2 rounded-full">← Back</a>
-      <a href="mailto:zurich@email.com?subject=I want the Restaurant Website" class="bg-black text-yellow-400 font-bold text-sm px-5 py-2 rounded-full">Order This Website</a>
-    </div>
-  </div>
+  <div class="h-10"></div>
 
 </body>
 </html>

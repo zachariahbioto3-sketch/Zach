@@ -1,133 +1,373 @@
-
 {% extends 'portfolio/base.html' %}
 
 {% block title %}Web Templates — ZurichDev{% endblock %}
 
 {% block content %}
 
-<!-- HERO -->
+<style>
+  /* ----------------------------------------------------
+     Luxury Design Overrides & Layout Support
+     Matching "Luxury Property Presentation Template for Real Estate Professionals.jpg"
+     ---------------------------------------------------- */
+  
+  /* Filter Navigation Bar */
+  .filter-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 6rem 6% 3rem;
+    background-color: var(--color-bg-light);
+    flex-wrap: wrap;
+    border-bottom: 1px solid rgba(36, 44, 35, 0.08);
+  }
 
+  .filter-btn {
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-brand-dark);
+    text-decoration: none;
+    padding: 0.65rem 2rem;
+    border: 1px solid rgba(36, 44, 35, 0.25);
+    border-radius: 9999px;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .filter-btn:hover, 
+  .filter-btn.active {
+    background-color: var(--color-brand-dark);
+    color: var(--color-white);
+    border-color: var(--color-brand-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(36, 44, 35, 0.1);
+  }
+
+  /* Editorial Grid Section */
+  .grid-section {
+    background-color: var(--color-bg-light);
+    padding: 3rem 6% 8rem;
+  }
+
+  .template-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3.5rem 3rem;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 1024px) {
+    .template-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem 2rem;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .template-grid {
+      grid-template-columns: 1fr;
+      gap: 4rem;
+      max-width: 480px;
+    }
+  }
+
+  /* Editorial Card Styling */
+  .template-card {
+    background-color: var(--color-bg-ivory);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 15px 35px rgba(36, 44, 35, 0.05);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .template-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 25px 55px rgba(36, 44, 35, 0.12);
+  }
+
+  /* Image Aspect Frame */
+  .card-thumb {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1.15;
+    overflow: hidden;
+    background-color: rgba(36, 44, 35, 0.05);
+  }
+
+  .card-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .template-card:hover .card-thumb img {
+    transform: scale(1.05);
+  }
+
+  .thumb-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-serif);
+    font-size: 3.5rem;
+    font-weight: 300;
+    color: var(--color-brand-dark);
+    background-color: rgba(36, 44, 35, 0.08);
+    text-transform: uppercase;
+  }
+
+  /* Hover Overlay */
+  .card-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(36, 44, 35, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(4px);
+  }
+
+  .template-card:hover .card-overlay {
+    opacity: 1;
+  }
+
+  .card-overlay span {
+    color: var(--color-white);
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.2em;
+    border: 1px solid var(--color-white);
+    padding: 0.75rem 2rem;
+    border-radius: 9999px;
+    background-color: rgba(36, 44, 35, 0.15);
+  }
+
+  /* Elegant Badge */
+  .badge {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    z-index: 10;
+    background-color: var(--color-brand-dark);
+    color: var(--color-white);
+    font-size: 0.58rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    padding: 0.4rem 1.1rem;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  /* Body Metadata Content */
+  .card-body {
+    padding: 2.2rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .card-tag {
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-text-muted);
+    margin-bottom: 0.6rem;
+  }
+
+  .card-body h3 {
+    font-family: var(--font-serif);
+    font-size: 1.45rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--color-brand-dark);
+    margin-bottom: 0.8rem;
+    line-height: 1.25;
+  }
+
+  .card-body p {
+    font-size: 0.88rem;
+    color: var(--color-text-muted);
+    line-height: 1.75;
+    font-weight: 300;
+    margin-bottom: 2rem;
+  }
+
+  /* Editorial Footer Grid Interface */
+  .card-footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid rgba(36, 44, 35, 0.1);
+    padding-top: 1.5rem;
+  }
+
+  .price {
+    font-family: var(--font-serif);
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: var(--color-brand-dark);
+  }
+
+  .btn-view {
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-brand-dark);
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-brand-dark);
+    padding-bottom: 1px;
+    transition: opacity 0.3s ease, letter-spacing 0.3s ease;
+  }
+
+  .btn-view:hover {
+    opacity: 0.7;
+    letter-spacing: 0.22em;
+  }
+
+  /* Luxury Call to Action Box */
+  .cta-section {
+    background-color: var(--color-brand-green);
+    color: var(--color-white);
+    padding: 9rem 6%;
+    text-align: center;
+  }
+
+  .cta-section h2 {
+    font-family: var(--font-serif);
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-white);
+    margin-bottom: 1.5rem;
+  }
+
+  .cta-section p {
+    font-size: 0.98rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.9;
+    max-width: 600px;
+    margin: 0 auto 3.5rem;
+    font-weight: 300;
+  }
+
+  /* Empty State UI fallback */
+  .empty-state {
+    text-align: center;
+    padding: 7rem 3rem;
+    background-color: var(--color-bg-ivory);
+    border-radius: 4px;
+    max-width: 640px;
+    margin: 2rem auto 4rem;
+    box-shadow: 0 15px 35px rgba(36, 44, 35, 0.05);
+  }
+
+  .empty-state h3 {
+    font-family: var(--font-serif);
+    font-size: 1.7rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-brand-dark);
+    margin-bottom: 1rem;
+  }
+
+  .empty-state p {
+    color: var(--color-text-muted);
+    font-size: 0.9rem;
+    font-weight: 300;
+    line-height: 1.6;
+  }
+</style>
+
+<!-- HERO SECTION -->
 <section class="hero">
-
-  <h1>Professional Websites for <span>Your Business</span></h1>
-
-  <p>Ready-made, fully customized websites for restaurants, shops, schools, clinics and more. Pick a design — we'll make it yours.</p>
-
-  <a href="#templates" class="btn-primary">Browse Templates</a>
-
+  <div class="hero-content">
+    <p class="hero-subtitle">Gold Standard Websites</p>
+    <h1 class="hero-title">Elevate Your<br>Brand Online</h1>
+    <p class="hero-desc">
+      Ready-made, fully customized web architectures curated for high-net-worth real estate portals, restaurants, creative studios, and medical clinics.
+    </p>
+    <a href="#templates" class="btn-capsule">Browse Ecosystem</a>
+  </div>
 </section>
 
-<!-- FILTER BAR -->
-
+<!-- FILTER NAVIGATION BAR -->
 <section class="filter-bar" id="templates">
-
-  <a href="{% url 'home' %}" class="filter-btn {% if not active_category %}active{% endif %}">All</a>
-
+  <a href="{% url 'home' %}" class="filter-btn {% if not active_category %}active{% endif %}">All Design Guides</a>
   {% for cat_key, cat_label in categories %}
-
     <a href="?category={{ cat_key }}"
-
        class="filter-btn {% if active_category == cat_key %}active{% endif %}">
-
       {{ cat_label }}
-
     </a>
-
   {% endfor %}
-
 </section>
 
-<!-- TEMPLATE GRID -->
-
+<!-- SYSTEM GRID SECTION -->
 <section class="grid-section">
-
   {% if templates %}
-
     <div class="template-grid">
-
       {% for site in templates %}
-
         <div class="template-card">
-
           {% if site.is_featured %}
-
-            <span class="badge">Featured</span>
-
+            <span class="badge">Signature Tier</span>
           {% endif %}
-
-          <a href="{% url 'preview' site.slug %}">
-
+          
+          <a href="{% url 'preview' site.slug %}" aria-label="Preview {{ site.title }}">
             <div class="card-thumb">
-
               {% if site.thumbnail %}
-
-                <img src="{{ site.thumbnail.url }}" alt="{{ site.title }}" />
-
+                <img src="{{ site.thumbnail.url }}" alt="{{ site.title }}" loading="lazy" />
               {% else %}
-
                 <div class="thumb-placeholder">{{ site.title|first }}</div>
-
               {% endif %}
-
               <div class="card-overlay">
-
-                <span>Live Preview →</span>
-
+                <span>View Live Preview &rarr;</span>
               </div>
-
             </div>
-
           </a>
 
           <div class="card-body">
-
             <span class="card-tag">{{ site.get_category_display }}</span>
-
             <h3>{{ site.title }}</h3>
-
-            <p>{{ site.description|truncatechars:80 }}</p>
-
+            <p>{{ site.description|truncatechars:105 }}</p>
+            
             <div class="card-footer">
-
               <strong class="price">KES {{ site.price|floatformat:0 }}</strong>
-
-              <a href="{% url 'preview' site.slug %}" class="btn-view">View Demo</a>
-
+              <a href="{% url 'preview' site.slug %}" class="btn-view">Inspect Architecture</a>
             </div>
-
           </div>
-
         </div>
-
       {% endfor %}
-
     </div>
-
   {% else %}
-
     <div class="empty-state">
-
-      <h3>No templates yet</h3>
-
-      <p>Add your first website template in the admin panel.</p>
-
+      <h3>No Frameworks Available</h3>
+      <p>Bespoke blueprints are currently being forged. Please check back shortly or access custom commissioning options in the administration panel.</p>
     </div>
-
   {% endif %}
-
 </section>
 
 <!-- CTA SECTION -->
-
 <section class="cta-section">
-
-  <h2>Need a Custom Website?</h2>
-
-  <p>Don't see exactly what you need? I build custom websites tailored to your business from scratch.</p>
-
-  <a href="mailto:zurich@email.com" class="btn-primary">Get in Touch</a>
-
+  <h2>Need an Original Architecture?</h2>
+  <p>If your project demands completely uncompromised, ground-up creative engineering, we design custom systems suited for global enterprise standard.</p>
+  <a href="mailto:zurich@email.com?subject=Commissioning custom enterprise platform" class="btn-capsule">Initiate Commission &rarr;</a>
 </section>
 
 {% endblock %}
-

@@ -2,25 +2,311 @@
 {% block title %}{{ site.title }} — Preview{% endblock %}
 
 {% block content %}
-<div class="preview-page">
-  <div class="preview-header">
-    <a href="{% url 'home' %}" class="back-link">← Back to Templates</a>
-    <h1>{{ site.title }}</h1>
-    <span class="card-tag">{{ site.get_category_display }}</span>
+
+<style>
+  /* ----------------------------------------------------
+     Luxury Preview Presentation Overrides
+     Matching "Luxury Property Presentation Template for Real Estate Professionals.jpg"
+     ---------------------------------------------------- */
+
+  /* Viewport Section */
+  .preview-section {
+    background-color: var(--color-bg-light);
+    padding: 8.5rem 6% 8rem;
+    min-height: calc(100vh - 120px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  /* Structural Navigation Block */
+  .preview-top-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(36, 44, 35, 0.08);
+    padding-bottom: 1.8rem;
+    margin-bottom: 4rem;
+    width: 100%;
+    max-width: 1300px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .back-link {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    color: var(--color-brand-dark);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+  }
+
+  .back-link:hover {
+    opacity: 0.7;
+    transform: translateX(-3px);
+  }
+
+  .preview-head-tag {
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: var(--color-text-muted);
+    border: 1px solid rgba(36, 44, 35, 0.15);
+    padding: 0.4rem 1.1rem;
+    border-radius: 9999px;
+    background-color: var(--color-bg-ivory);
+  }
+
+  /* Elegant Editorial Split Layout */
+  .preview-split {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    max-width: 1300px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  @media (max-width: 1024px) {
+    .preview-split {
+      grid-template-columns: 1fr;
+      gap: 4rem;
+    }
+    .preview-section {
+      padding-top: 7.5rem;
+    }
+  }
+
+  /* Device Preview Showcase Mockup (Left Side) */
+  .preview-visual-container {
+    position: relative;
+    width: 100%;
+  }
+
+  .device-frame {
+    background-color: var(--color-white);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 30px 70px rgba(36, 44, 35, 0.12);
+    border: 1px solid rgba(36, 44, 35, 0.06);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .device-frame:hover {
+    transform: translateY(-4px);
+  }
+
+  .device-header {
+    background-color: var(--color-bg-ivory);
+    height: 42px;
+    display: flex;
+    align-items: center;
+    padding: 0 1.2rem;
+    border-bottom: 1px solid rgba(36, 44, 35, 0.08);
+  }
+
+  .device-dots {
+    display: flex;
+    gap: 0.4rem;
+  }
+
+  .device-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: rgba(36, 44, 35, 0.2);
+  }
+
+  .device-address-bar {
+    flex-grow: 1;
+    max-width: 320px;
+    height: 22px;
+    background-color: var(--color-white);
+    border-radius: 4px;
+    margin-left: 2rem;
+    display: flex;
+    align-items: center;
+    padding: 0 1rem;
+    font-size: 0.65rem;
+    color: var(--color-text-muted);
+    letter-spacing: 0.05em;
+    border: 1px solid rgba(36, 44, 35, 0.04);
+  }
+
+  .device-viewport {
+    aspect-ratio: 1.55;
+    background-color: var(--color-bg-ivory);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .device-viewport img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 1s ease;
+  }
+
+  .device-viewport-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-serif);
+    font-size: 5rem;
+    color: var(--color-brand-dark);
+    font-weight: 300;
+    text-transform: uppercase;
+    background-color: rgba(36, 44, 35, 0.06);
+  }
+
+  /* Double Ring Ornamental Backing */
+  .device-ornamental-ring {
+    position: absolute;
+    inset: -1.5rem;
+    border: 1px solid rgba(36, 44, 35, 0.06);
+    border-radius: 12px;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* Metadata Control Box (Right Side) */
+  .preview-panel {
+    background-color: var(--color-bg-ivory);
+    padding: 4.5rem 4rem;
+    border-radius: 4px;
+    box-shadow: 0 15px 35px rgba(36, 44, 35, 0.04);
+    border: 1px solid rgba(36, 44, 35, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    .preview-panel {
+      padding: 3rem 2rem;
+    }
+  }
+
+  .preview-panel h1 {
+    font-family: var(--font-serif);
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    line-height: 1.15;
+    color: var(--color-brand-dark);
+    margin-bottom: 1.8rem;
+  }
+
+  .preview-panel p {
+    font-size: 0.95rem;
+    color: var(--color-text-muted);
+    line-height: 1.9;
+    font-weight: 300;
+    margin-bottom: 3.5rem;
+  }
+
+  /* Interaction and pricing bar */
+  .preview-cta-block {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(36, 44, 35, 0.1);
+    padding-top: 2.2rem;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .price-large {
+    font-family: var(--font-serif);
+    font-size: 1.85rem;
+    font-weight: 400;
+    color: var(--color-brand-dark);
+    letter-spacing: 0.02em;
+  }
+
+  /* Adaptive Alert Badge */
+  .luxury-notice {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.7rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--color-brand-green);
+    background-color: rgba(63, 74, 62, 0.06);
+    border: 1px solid rgba(63, 74, 62, 0.12);
+    padding: 0.65rem 1.4rem;
+    border-radius: 9999px;
+    margin-top: 2.5rem;
+    align-self: flex-start;
+  }
+</style>
+
+<section class="preview-section">
+  <!-- PREVIEW CONTROL TOP BAR -->
+  <div class="preview-top-nav">
+    <a href="{% url 'home' %}" class="back-link">&larr; Back to Templates</a>
+    <span class="preview-head-tag">{{ site.get_category_display }}</span>
   </div>
 
-  <div class="preview-info">
-    <p>{{ site.description }}</p>
-    <div class="preview-cta">
-      <strong class="price-big">KES {{ site.price|floatformat:0 }}</strong>
-      <a href="mailto:zurich@email.com?subject=I want {{ site.title }}" class="btn-primary">
-        Order This Website
-      </a>
+  <!-- INTERACTIVE SPECIFICATION SECTION -->
+  <div class="preview-split">
+    
+    <!-- LEFT: PREVIEW VISUAL DEVICE mockups representing standard layout aesthetics -->
+    <div class="preview-visual-container">
+      <div class="device-ornamental-ring"></div>
+      <div class="device-frame">
+        <div class="device-header">
+          <div class="device-dots">
+            <div class="device-dot"></div>
+            <div class="device-dot"></div>
+            <div class="device-dot"></div>
+          </div>
+          <div class="device-address-bar">
+            <span>zurichdev.ke/preview/{{ site.slug }}/</span>
+          </div>
+        </div>
+        <div class="device-viewport">
+          {% if site.thumbnail %}
+            <img src="{{ site.thumbnail.url }}" alt="Preview representation of {{ site.title }}" />
+          {% else %}
+            <div class="device-viewport-placeholder">{{ site.title|first }}</div>
+          {% endif %}
+        </div>
+      </div>
     </div>
-  </div>
 
-  <div class="preview-notice">
-    ⚙️ Full live preview coming soon. Contact us to see a working demo.
+    <!-- RIGHT: EDITORIAL METADATA DISPLAY PANEL -->
+    <div class="preview-panel">
+      <h1>{{ site.title }}</h1>
+      <p>{{ site.description }}</p>
+
+      <!-- CALL TO ACTION & PRICING METRICS -->
+      <div class="preview-cta-block">
+        <strong class="price-large">KES {{ site.price|floatformat:0 }}</strong>
+        <a href="mailto:zurich@email.com?subject=I want {{ site.title }} template structure" class="btn-capsule btn-capsule-dark">
+          Order This Website
+        </a>
+      </div>
+
+      <!-- DESIGN ENVIRONMENT NOTICE -->
+      <div class="luxury-notice">
+        <span>⚙️ Live interactive inspection system coming soon</span>
+      </div>
+    </div>
+
   </div>
-</div>
+</section>
+
 {% endblock %}
