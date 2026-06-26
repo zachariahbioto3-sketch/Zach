@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Fashion Store | Inspired by 43417583905718525.jpg</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .product-card:hover .overlay { opacity: 1; }
+        .transition-slow { transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+    </style>
+</head>
+<body class="bg-white text-slate-800">
+
+    <nav class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-slate-100">
+        <div class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div class="text-2xl font-bold tracking-tighter">FLONE.</div>
+            <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-600">
+                <a href="#" class="hover:text-black">Home</a>
+                <a href="#" class="hover:text-black">Shop</a>
+                <a href="#" class="hover:text-black">Collection</a>
+                <a href="#" class="hover:text-black">Pages</a>
+            </div>
+            <div class="flex items-center space-x-5 text-slate-600">
+                <button>🔍</button>
+                <button>👤</button>
+                <button>🛒 (02)</button>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative h-[600px] flex items-center bg-slate-100 px-10">
+        <div class="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1516826957135-700dedea698c?q=80&w=2000')] bg-cover bg-center"></div>
+        <div class="absolute inset-0 bg-black/5"></div>
+        <div class="relative z-10 max-w-2xl">
+            <h3 class="text-lg font-medium mb-4">— Stylish</h3>
+            <h1 class="text-6xl md:text-8xl font-bold mb-6 tracking-tight">Male Clothes</h1>
+            <p class="text-xl mb-8">30% off Summer Vacation</p>
+            <button class="bg-black text-white px-10 py-4 text-sm uppercase tracking-widest hover:bg-slate-800 transition">Shop Now</button>
+        </div>
+    </header>
+
+    <section class="py-20 max-w-7xl mx-auto px-6 grid md:grid-cols-3 gap-12 text-center">
+        <div>
+            <div class="text-4xl mb-4">🚚</div>
+            <h4 class="font-bold mb-2">Free Shipping</h4>
+            <p class="text-sm text-slate-500">Free delivery on all orders over $200</p>
+        </div>
+        <div>
+            <div class="text-4xl mb-4">🎧</div>
+            <h4 class="font-bold mb-2">Support 24/7</h4>
+            <p class="text-sm text-slate-500">We are here to assist you whenever you need.</p>
+        </div>
+        <div>
+            <div class="text-4xl mb-4">↩️</div>
+            <h4 class="font-bold mb-2">Money Return</h4>
+            <p class="text-sm text-slate-500">30 days easy return policy guaranteed.</p>
+        </div>
+    </section>
+
+    <section class="py-10 max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold mb-3">New Arrival</h2>
+            <p class="text-slate-500">Discover our latest curated collection</p>
+        </div>
+        
+        <div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8">
+            <!-- Products injected by JS -->
+        </div>
+    </section>
+
+    <section class="py-20 bg-slate-50">
+        <div class="max-w-7xl mx-auto px-6">
+            <h2 class="text-center text-3xl font-bold mb-16">Our Blog</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Blog Cards -->
+                <div class="group cursor-pointer">
+                    <div class="h-64 bg-slate-200 mb-4 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1493612276216-ee3925520721" class="w-full h-full object-cover group-hover:scale-105 transition-slow">
+                    </div>
+                    <span class="text-xs uppercase font-bold text-slate-400">Lifestyle</span>
+                    <h3 class="text-xl font-bold mt-2">Interior Decor Trends 2026</h3>
+                </div>
+                <div class="group cursor-pointer">
+                    <div class="h-64 bg-slate-200 mb-4 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1524758631624-e2822e304c36" class="w-full h-full object-cover group-hover:scale-105 transition-slow">
+                    </div>
+                    <span class="text-xs uppercase font-bold text-slate-400">Lifestyle</span>
+                    <h3 class="text-xl font-bold mt-2">Modern Minimalist Living</h3>
+                </div>
+                <div class="group cursor-pointer">
+                    <div class="h-64 bg-slate-200 mb-4 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1" class="w-full h-full object-cover group-hover:scale-105 transition-slow">
+                    </div>
+                    <span class="text-xs uppercase font-bold text-slate-400">Lifestyle</span>
+                    <h3 class="text-xl font-bold mt-2">Sustainable Fashion Choices</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-20 bg-black text-white text-sm">
+        <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-4 gap-12">
+            <div>
+                <h4 class="font-bold mb-6 text-lg">FLONE.</h4>
+                <p class="text-slate-400">© 2026 Flone. All Rights Reserved.</p>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6">About Us</h4>
+                <ul class="space-y-4 text-slate-400">
+                    <li>About Us</li>
+                    <li>Store Location</li>
+                    <li>Contact</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6">Useful Links</h4>
+                <ul class="space-y-4 text-slate-400">
+                    <li>Returns</li>
+                    <li>Support Policy</li>
+                    <li>Size Guide</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-6">Subscribe</h4>
+                <input type="email" placeholder="Enter your email" class="bg-transparent border-b border-slate-700 w-full py-2 mb-4 outline-none focus:border-white">
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const products = [
+            { name: "Casual Sweater", price: "$60.00", tag: "-10%", img: "https://images.unsplash.com/photo-1556821840-3a63f95609a7" },
+            { name: "Tactical Backpack", price: "$70.00", tag: "New", img: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62" },
+            { name: "Polarized Sunnies", price: "$40.00", tag: "-10%", img: "https://images.unsplash.com/photo-1572635196237-14b3f281503f" },
+            { name: "Summer Fedora", price: "$80.00", tag: "New", img: "https://images.unsplash.com/photo-1533827432537-70133748f5c8" },
+            { name: "Vintage Chronograph", price: "$30.00", tag: "-10%", img: "https://images.unsplash.com/photo-1524592094714-0f0654e20314" }
+        ];
+
+        const grid = document.getElementById('product-grid');
+        products.forEach(p => {
+            grid.innerHTML += `
+                <div class="product-card group relative">
+                    <div class="relative bg-slate-100 h-80 mb-4 overflow-hidden">
+                        <img src="${p.img}" class="w-full h-full object-cover group-hover:scale-105 transition-slow">
+                        <div class="absolute top-4 left-4 bg-white px-3 py-1 text-[10px] font-bold uppercase">${p.tag}</div>
+                        <div class="overlay absolute inset-0 bg-black/20 opacity-0 transition-slow flex items-center justify-center">
+                            <button class="bg-white px-6 py-2 text-xs font-bold hover:bg-slate-800 hover:text-white transition">Quick View</button>
+                        </div>
+                    </div>
+                    <h4 class="font-medium text-sm">${p.name}</h4>
+                    <p class="text-xs font-bold mt-1">${p.price}</p>
+                </div>
+            `;
+        });
+    </script>
+</body>
+</html>
