@@ -75,3 +75,27 @@ CSRF_TRUSTED_ORIGINS = [
     'http://localhost:8000',
     'http://127.0.0.1:8000',
 ]
+
+import dj_database_url
+import os
+
+# Production overrides
+if os.environ.get('RENDER'):
+    DEBUG = False
+    ALLOWED_HOSTS = ['.onrender.com', 'localhost']
+
+    DATABASES = {
+        'default': dj_database_url.config(
+            default=os.environ.get('DATABASE_URL'),
+            conn_max_age=600
+        )
+    }
+
+    CSRF_TRUSTED_ORIGINS = [
+        'https://*.onrender.com',
+    ]
+
+    STATIC_ROOT = BASE_DIR / 'staticfiles'
+    STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+SECRET_KEY = os.environ.get('SECRET_KEY', SECRET_KEY)
