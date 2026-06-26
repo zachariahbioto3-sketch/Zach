@@ -1,0 +1,133 @@
+
+{% extends 'portfolio/base.html' %}
+
+{% block title %}Web Templates — ZurichDev{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+
+<section class="hero">
+
+  <h1>Professional Websites for <span>Your Business</span></h1>
+
+  <p>Ready-made, fully customized websites for restaurants, shops, schools, clinics and more. Pick a design — we'll make it yours.</p>
+
+  <a href="#templates" class="btn-primary">Browse Templates</a>
+
+</section>
+
+<!-- FILTER BAR -->
+
+<section class="filter-bar" id="templates">
+
+  <a href="{% url 'home' %}" class="filter-btn {% if not active_category %}active{% endif %}">All</a>
+
+  {% for cat_key, cat_label in categories %}
+
+    <a href="?category={{ cat_key }}"
+
+       class="filter-btn {% if active_category == cat_key %}active{% endif %}">
+
+      {{ cat_label }}
+
+    </a>
+
+  {% endfor %}
+
+</section>
+
+<!-- TEMPLATE GRID -->
+
+<section class="grid-section">
+
+  {% if templates %}
+
+    <div class="template-grid">
+
+      {% for site in templates %}
+
+        <div class="template-card">
+
+          {% if site.is_featured %}
+
+            <span class="badge">Featured</span>
+
+          {% endif %}
+
+          <a href="{% url 'preview' site.slug %}">
+
+            <div class="card-thumb">
+
+              {% if site.thumbnail %}
+
+                <img src="{{ site.thumbnail.url }}" alt="{{ site.title }}" />
+
+              {% else %}
+
+                <div class="thumb-placeholder">{{ site.title|first }}</div>
+
+              {% endif %}
+
+              <div class="card-overlay">
+
+                <span>Live Preview →</span>
+
+              </div>
+
+            </div>
+
+          </a>
+
+          <div class="card-body">
+
+            <span class="card-tag">{{ site.get_category_display }}</span>
+
+            <h3>{{ site.title }}</h3>
+
+            <p>{{ site.description|truncatechars:80 }}</p>
+
+            <div class="card-footer">
+
+              <strong class="price">KES {{ site.price|floatformat:0 }}</strong>
+
+              <a href="{% url 'preview' site.slug %}" class="btn-view">View Demo</a>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      {% endfor %}
+
+    </div>
+
+  {% else %}
+
+    <div class="empty-state">
+
+      <h3>No templates yet</h3>
+
+      <p>Add your first website template in the admin panel.</p>
+
+    </div>
+
+  {% endif %}
+
+</section>
+
+<!-- CTA SECTION -->
+
+<section class="cta-section">
+
+  <h2>Need a Custom Website?</h2>
+
+  <p>Don't see exactly what you need? I build custom websites tailored to your business from scratch.</p>
+
+  <a href="mailto:zurich@email.com" class="btn-primary">Get in Touch</a>
+
+</section>
+
+{% endblock %}
+

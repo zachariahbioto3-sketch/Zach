@@ -1,0 +1,26 @@
+{% extends 'portfolio/base.html' %}
+{% block title %}{{ site.title }} — Preview{% endblock %}
+
+{% block content %}
+<div class="preview-page">
+  <div class="preview-header">
+    <a href="{% url 'home' %}" class="back-link">← Back to Templates</a>
+    <h1>{{ site.title }}</h1>
+    <span class="card-tag">{{ site.get_category_display }}</span>
+  </div>
+
+  <div class="preview-info">
+    <p>{{ site.description }}</p>
+    <div class="preview-cta">
+      <strong class="price-big">KES {{ site.price|floatformat:0 }}</strong>
+      <a href="mailto:zurich@email.com?subject=I want {{ site.title }}" class="btn-primary">
+        Order This Website
+      </a>
+    </div>
+  </div>
+
+  <div class="preview-notice">
+    ⚙️ Full live preview coming soon. Contact us to see a working demo.
+  </div>
+</div>
+{% endblock %}

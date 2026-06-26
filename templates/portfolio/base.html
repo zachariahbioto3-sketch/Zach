@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{% block title %}Zurich Dev — Web Solutions{% endblock %}</title>
+  {% load static %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav class="navbar">
+    <a href="{% url 'home' %}" class="brand">Zurich<span>Dev</span></a>
+    <div class="nav-links">
+      <a href="{% url 'home' %}">Templates</a>
+      <a href="#">Services</a>
+      <a href="#">Contact</a>
+    </div>
+  </nav>
+
+  {% block content %}{% endblock %}
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2025 ZurichDev — Professional Web Solutions for Kenyan Businesses</p>
+    <p>📞 +254 700 000 000 &nbsp;|&nbsp; 📧 zurich@email.com</p>
+  </footer>
+
+</body>
+</html>
