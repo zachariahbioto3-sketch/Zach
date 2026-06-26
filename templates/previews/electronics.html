@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>VoltX — Electronics Store</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            accent: '#00d4ff',
+            dark: '#080c10',
+            card: '#0f1419',
+            surface: '#0d1117',
+          }
+        }
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .glow { box-shadow: 0 0 30px rgba(0,212,255,0.15); }
+    .product-card:hover .cart-slide { transform: translateY(0); }
+    .cart-slide { transform: translateY(100%); transition: transform 0.3s; }
+    .tech-border { border: 1px solid rgba(0,212,255,0.15); }
+  </style>
+</head>
+<body class="bg-dark text-white">
+
+  <!-- PROMO BAR -->
+  <div class="bg-accent text-black text-center text-xs font-bold py-2 tracking-wide">
+    ⚡ MEGA SALE — Up to 35% OFF on all laptops & smartphones this week only!
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="sticky top-0 z-50 bg-dark/95 backdrop-blur border-b border-white/5 px-4 lg:px-16 py-4">
+    <div class="flex justify-between items-center">
+      <div class="text-2xl font-black tracking-tight">Volt<span class="text-accent">X</span></div>
+      <div class="hidden lg:flex gap-8 text-sm text-white/50">
+        <a href="#" class="hover:text-accent transition">Home</a>
+        <a href="#products" class="hover:text-accent transition">Products</a>
+        <a href="#" class="hover:text-accent transition">Brands</a>
+        <a href="#" class="hover:text-accent transition">Deals</a>
+        <a href="#" class="hover:text-accent transition">Support</a>
+      </div>
+      <div class="flex items-center gap-3">
+        <div class="hidden md:flex items-center bg-surface border border-white/10 rounded-full px-4 py-2 gap-2 w-56">
+          <span class="text-white/30 text-sm">🔍</span>
+          <input class="bg-transparent text-sm text-white outline-none w-full placeholder-white/30" placeholder="Search products..."/>
+        </div>
+        <button class="relative bg-accent/10 border border-accent/30 text-accent px-4 py-2 rounded-full text-sm font-semibold hover:bg-accent hover:text-black transition">
+          🛒 Cart <span class="ml-1 bg-accent text-black text-xs font-black px-1.5 py-0.5 rounded-full">3</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="px-4 lg:px-16 py-16 lg:py-24 relative overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-br from-accent/5 via-transparent to-transparent pointer-events-none"></div>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div>
+        <div class="inline-flex items-center gap-2 bg-accent/10 border border-accent/20 text-accent text-xs font-semibold px-4 py-2 rounded-full mb-6">
+          ⚡ New Arrivals — Just Dropped
+        </div>
+        <h1 class="text-5xl lg:text-7xl font-black leading-none tracking-tight mb-6">
+          Next-Gen<br/><span class="text-accent">Tech</span><br/>Is Here
+        </h1>
+        <p class="text-white/50 text-lg mb-8 max-w-md leading-relaxed">
+          Shop the latest smartphones, laptops, audio gear and smart home devices — all with genuine warranty and M-Pesa checkout.
+        </p>
+        <div class="flex gap-4 flex-wrap">
+          <a href="#products" class="bg-accent text-black font-black px-8 py-3.5 rounded-full hover:opacity-90 transition text-sm">Shop Now →</a>
+          <a href="#" class="border border-white/20 text-white font-semibold px-8 py-3.5 rounded-full hover:border-accent hover:text-accent transition text-sm">View Deals</a>
+        </div>
+        <div class="flex gap-10 mt-12">
+          <div><div class="text-2xl font-black text-accent">5,000+</div><div class="text-white/40 text-xs mt-1">Products</div></div>
+          <div><div class="text-2xl font-black text-accent">50+</div><div class="text-white/40 text-xs mt-1">Top Brands</div></div>
+          <div><div class="text-2xl font-black text-accent">4.8★</div><div class="text-white/40 text-xs mt-1">Rating</div></div>
+          <div><div class="text-2xl font-black text-accent">24hr</div><div class="text-white/40 text-xs mt-1">Delivery NBI</div></div>
+        </div>
+      </div>
+      <!-- HERO PRODUCT SHOWCASE -->
+      <div class="relative">
+        <div class="bg-surface tech-border rounded-3xl p-8 glow">
+          <div class="text-center text-8xl mb-6">📱</div>
+          <div class="text-center">
+            <div class="text-xs text-accent font-semibold tracking-widest uppercase mb-2">Featured Drop</div>
+            <div class="text-xl font-bold mb-1">Samsung Galaxy S25 Ultra</div>
+            <div class="text-white/40 text-sm mb-4">256GB · Phantom Black · 5G</div>
+            <div class="flex items-center justify-center gap-3 mb-5">
+              <span class="text-2xl font-black text-accent">KES 145,000</span>
+              <span class="text-white/30 line-through text-sm">KES 165,000</span>
+            </div>
+            <button class="w-full bg-accent text-black font-black py-3 rounded-xl hover:opacity-90 transition text-sm">Add to Cart</button>
+          </div>
+        </div>
+        <!-- FLOATING BADGES -->
+        <div class="absolute -top-4 -right-4 bg-green-500 text-black text-xs font-black px-3 py-1.5 rounded-full">✓ In Stock</div>
+        <div class="absolute -bottom-4 -left-4 bg-card tech-border text-white text-xs px-4 py-2 rounded-full">🔒 1yr Warranty</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRANDS -->
+  <div class="border-y border-white/5 px-4 lg:px-16 py-6 flex flex-wrap gap-8 justify-center items-center">
+    <span class="text-white/20 text-xs uppercase tracking-widest">Official Partners</span>
+    <span class="text-white/40 font-bold text-sm hover:text-white transition cursor-pointer">Samsung</span>
+    <span class="text-white/40 font-bold text-sm hover:text-white transition cursor-pointer">Apple</span>
+    <span class="text-white/40 font-bold text-sm hover:text-white transition cursor-pointer">Sony</span>
+    <span class="text-white/40 font-bold text-sm hover:text-white transition cursor-pointer">HP</span>
+    <span class="text-white/40 font-bold text-sm hover:text-white transition cursor-pointer">Lenovo</span>
+    <span class="text-white/40 font-bold text-sm hover:text-white transition cursor-pointer">LG</span>
+    <span class="text-white/40 font-bold text-sm hover:text-white transition cursor-pointer">JBL</span>
+    <span class="text-white/40 font-bold text-sm hover:text-white transition cursor-pointer">Xiaomi</span>
+  </div>
+
+  <!-- CATEGORIES -->
+  <section class="px-4 lg:px-16 py-14">
+    <div class="text-center mb-10">
+      <h2 class="text-2xl font-black mb-2">Shop by Category</h2>
+      <p class="text-white/40 text-sm">Find exactly what you need</p>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
+      <div class="bg-accent/10 border border-accent/30 rounded-2xl p-4 text-center cursor-pointer hover:bg-accent/20 transition">
+        <div class="text-3xl mb-2">📱</div>
+        <div class="text-xs font-semibold text-accent">Phones</div>
+        <div class="text-white/30 text-xs">240+</div>
+      </div>
+      <div class="bg-surface tech-border rounded-2xl p-4 text-center cursor-pointer hover:border-accent/40 transition">
+        <div class="text-3xl mb-2">💻</div>
+        <div class="text-xs font-semibold">Laptops</div>
+        <div class="text-white/30 text-xs">180+</div>
+      </div>
+      <div class="bg-surface tech-border rounded-2xl p-4 text-center cursor-pointer hover:border-accent/40 transition">
+        <div class="text-3xl mb-2">🎧</div>
+        <div class="text-xs font-semibold">Audio</div>
+        <div class="text-white/30 text-xs">320+</div>
+      </div>
+      <div class="bg-surface tech-border rounded-2xl p-4 text-center cursor-pointer hover:border-accent/40 transition">
+        <div class="text-3xl mb-2">📺</div>
+        <div class="text-xs font-semibold">TVs</div>
+        <div class="text-white/30 text-xs">95+</div>
+      </div>
+      <div class="bg-surface tech-border rounded-2xl p-4 text-center cursor-pointer hover:border-accent/40 transition">
+        <div class="text-3xl mb-2">⌚</div>
+        <div class="text-xs font-semibold">Wearables</div>
+        <div class="text-white/30 text-xs">140+</div>
+      </div>
+      <div class="bg-surface tech-border rounded-2xl p-4 text-center cursor-pointer hover:border-accent/40 transition">
+        <div class="text-3xl mb-2">🎮</div>
+        <div class="text-xs font-semibold">Gaming</div>
+        <div class="text-white/30 text-xs">210+</div>
+      </div>
+      <div class="bg-surface tech-border rounded-2xl p-4 text-center cursor-pointer hover:border-accent/40 transition">
+        <div class="text-3xl mb-2">🏠</div>
+        <div class="text-xs font-semibold">Smart Home</div>
+        <div class="text-white/30 text-xs">160+</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="products" class="px-4 lg:px-16 pb-20">
+    <div class="flex justify-between items-center mb-8">
+      <div>
+        <h2 class="text-2xl font-black">Featured Products</h2>
+        <p class="text-white/40 text-sm mt-1">Top picks with best prices</p>
+      </div>
+      <div class="flex gap-2">
+        <button class="bg-accent text-black text-xs font-bold px-4 py-2 rounded-full">All</button>
+        <button class="border border-white/10 text-white/50 text-xs px-4 py-2 rounded-full hover:border-accent hover:text-accent transition">New</button>
+        <button class="border border-white/10 text-white/50 text-xs px-4 py-2 rounded-full hover:border-accent hover:text-accent transition">On Sale</button>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+      <!-- PRODUCT 1 -->
+      <div class="product-card bg-card tech-border rounded-2xl overflow-hidden hover:border-accent/40 hover:glow transition-all duration-300 relative">
+        <div class="h-52 bg-surface flex items-center justify-center text-7xl relative overflow-hidden">
+          📱
+          <span class="absolute top-3 left-3 bg-red-500 text-white text-xs font-black px-2 py-1 rounded-full">-20%</span>
+          <span class="absolute top-3 right-3 text-white/30 hover:text-red-400 cursor-pointer text-lg">♡</span>
+          <div class="cart-slide absolute bottom-0 left-0 right-0 bg-accent text-black text-center py-2.5 text-xs font-black cursor-pointer">+ ADD TO CART</div>
+        </div>
+        <div class="p-4">
+          <div class="text-accent text-xs font-semibold mb-1">Samsung</div>
+          <div class="font-bold text-sm mb-1">Galaxy A55 5G</div>
+          <div class="text-white/40 text-xs mb-3">128GB · 8GB RAM · 6.6" Display</div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-accent font-black">KES 42,000</span>
+            <span class="text-white/30 text-xs line-through">KES 52,500</span>
+          </div>
+          <div class="text-yellow-400 text-xs">★★★★★ <span class="text-white/30">(218)</span></div>
+        </div>
+      </div>
+
+      <!-- PRODUCT 2 -->
+      <div class="product-card bg-card tech-border rounded-2xl overflow-hidden hover:border-accent/40 transition-all duration-300 relative">
+        <div class="h-52 bg-surface flex items-center justify-center text-7xl relative overflow-hidden">
+          💻
+          <span class="absolute top-3 left-3 bg-accent text-black text-xs font-black px-2 py-1 rounded-full">NEW</span>
+          <span class="absolute top-3 right-3 text-white/30 hover:text-red-400 cursor-pointer text-lg">♡</span>
+          <div class="cart-slide absolute bottom-0 left-0 right-0 bg-accent text-black text-center py-2.5 text-xs font-black cursor-pointer">+ ADD TO CART</div>
+        </div>
+        <div class="p-4">
+          <div class="text-accent text-xs font-semibold mb-1">HP</div>
+          <div class="font-bold text-sm mb-1">Pavilion 15 Intel i7</div>
+          <div class="text-white/40 text-xs mb-3">512GB SSD · 16GB RAM · Win11</div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-accent font-black">KES 88,000</span>
+          </div>
+          <div class="text-yellow-400 text-xs">★★★★☆ <span class="text-white/30">(94)</span></div>
+        </div>
+      </div>
+
+      <!-- PRODUCT 3 -->
+      <div class="product-card bg-card tech-border rounded-2xl overflow-hidden hover:border-accent/40 transition-all duration-300 relative">
+        <div class="h-52 bg-surface flex items-center justify-center text-7xl relative overflow-hidden">
+          🎧
+          <span class="absolute top-3 left-3 bg-purple-500 text-white text-xs font-black px-2 py-1 rounded-full">HOT</span>
+          <span class="absolute top-3 right-3 text-white/30 hover:text-red-400 cursor-pointer text-lg">♡</span>
+          <div class="cart-slide absolute bottom-0 left-0 right-0 bg-accent text-black text-center py-2.5 text-xs font-black cursor-pointer">+ ADD TO CART</div>
+        </div>
+        <div class="p-4">
+          <div class="text-accent text-xs font-semibold mb-1">Sony</div>
+          <div class="font-bold text-sm mb-1">WH-1000XM5 ANC</div>
+          <div class="text-white/40 text-xs mb-3">Noise Cancelling · 30hr Battery</div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-accent font-black">KES 28,000</span>
+            <span class="text-white/30 text-xs line-through">KES 35,000</span>
+          </div>
+          <div class="text-yellow-400 text-xs">★★★★★ <span class="text-white/30">(512)</span></div>
+        </div>
+      </div>
+
+      <!-- PRODUCT 4 -->
+      <div class="product-card bg-card tech-border rounded-2xl overflow-hidden hover:border-accent/40 transition-all duration-300 relative">
+        <div class="h-52 bg-surface flex items-center justify-center text-7xl relative overflow-hidden">
+          ⌚
+          <span class="absolute top-3 right-3 text-white/30 hover:text-red-400 cursor-pointer text-lg">♡</span>
+          <div class="cart-slide absolute bottom-0 left-0 right-0 bg-accent text-black text-center py-2.5 text-xs font-black cursor-pointer">+ ADD TO CART</div>
+        </div>
+        <div class="p-4">
+          <div class="text-accent text-xs font-semibold mb-1">Samsung</div>
+          <div class="font-bold text-sm mb-1">Galaxy Watch 7</div>
+          <div class="text-white/40 text-xs mb-3">44mm · GPS · Health Monitor</div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-accent font-black">KES 32,000</span>
+          </div>
+          <div class="text-yellow-400 text-xs">★★★★☆ <span class="text-white/30">(176)</span></div>
+        </div>
+      </div>
+
+      <!-- PRODUCT 5 -->
+      <div class="product-card bg-card tech-border rounded-2xl overflow-hidden hover:border-accent/40 transition-all duration-300 relative">
+        <div class="h-52 bg-surface flex items-center justify-center text-7xl relative overflow-hidden">
+          📺
+          <span class="absolute top-3 left-3 bg-red-500 text-white text-xs font-black px-2 py-1 rounded-full">-15%</span>
+          <span class="absolute top-3 right-3 text-white/30 hover:text-red-400 cursor-pointer text-lg">♡</span>
+          <div class="cart-slide absolute bottom-0 left-0 right-0 bg-accent text-black text-center py-2.5 text-xs font-black cursor-pointer">+ ADD TO CART</div>
+        </div>
+        <div class="p-4">
+          <div class="text-accent text-xs font-semibold mb-1">LG</div>
+          <div class="font-bold text-sm mb-1">55" 4K Smart TV</div>
+          <div class="text-white/40 text-xs mb-3">OLED · WebOS · Dolby Vision</div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-accent font-black">KES 72,000</span>
+            <span class="text-white/30 text-xs line-through">KES 85,000</span>
+          </div>
+          <div class="text-yellow-400 text-xs">★★★★★ <span class="text-white/30">(89)</span></div>
+        </div>
+      </div>
+
+      <!-- PRODUCT 6 -->
+      <div class="product-card bg-card tech-border rounded-2xl overflow-hidden hover:border-accent/40 transition-all duration-300 relative">
+        <div class="h-52 bg-surface flex items-center justify-center text-7xl relative overflow-hidden">
+          🎮
+          <span class="absolute top-3 left-3 bg-accent text-black text-xs font-black px-2 py-1 rounded-full">NEW</span>
+          <span class="absolute top-3 right-3 text-white/30 hover:text-red-400 cursor-pointer text-lg">♡</span>
+          <div class="cart-slide absolute bottom-0 left-0 right-0 bg-accent text-black text-center py-2.5 text-xs font-black cursor-pointer">+ ADD TO CART</div>
+        </div>
+        <div class="p-4">
+          <div class="text-accent text-xs font-semibold mb-1">Sony</div>
+          <div class="font-bold text-sm mb-1">PlayStation 5 Slim</div>
+          <div class="text-white/40 text-xs mb-3">1TB · Disc Edition · DualSense</div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-accent font-black">KES 68,000</span>
+          </div>
+          <div class="text-yellow-400 text-xs">★★★★★ <span class="text-white/30">(430)</span></div>
+        </div>
+      </div>
+
+      <!-- PRODUCT 7 -->
+      <div class="product-card bg-card tech-border rounded-2xl overflow-hidden hover:border-accent/40 transition-all duration-300 relative">
+        <div class="h-52 bg-surface flex items-center justify-center text-7xl relative overflow-hidden">
+          🖨️
+          <span class="absolute top-3 right-3 text-white/30 hover:text-red-400 cursor-pointer text-lg">♡</span>
+          <div class="cart-slide absolute bottom-0 left-0 right-0 bg-accent text-black text-center py-2.5 text-xs font-black cursor-pointer">+ ADD TO CART</div>
+        </div>
+        <div class="p-4">
+          <div class="text-accent text-xs font-semibold mb-1">HP</div>
+          <div class="font-bold text-sm mb-1">DeskJet 2755e</div>
+          <div class="text-white/40 text-xs mb-3">Wireless · Print/Scan/Copy</div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-accent font-black">KES 8,500</span>
+          </div>
+          <div class="text-yellow-400 text-xs">★★★★☆ <span class="text-white/30">(67)</span></div>
+        </div>
+      </div>
+
+      <!-- PRODUCT 8 -->
+      <div class="product-card bg-card tech-border rounded-2xl overflow-hidden hover:border-accent/40 transition-all duration-300 relative">
+        <div class="h-52 bg-surface flex items-center justify-center text-7xl relative overflow-hidden">
+          📷
+          <span class="absolute top-3 left-3 bg-purple-500 text-white text-xs font-black px-2 py-1 rounded-full">HOT</span>
+          <span class="absolute top-3 right-3 text-white/30 hover:text-red-400 cursor-pointer text-lg">♡</span>
+          <div class="cart-slide absolute bottom-0 left-0 right-0 bg-accent text-black text-center py-2.5 text-xs font-black cursor-pointer">+ ADD TO CART</div>
+        </div>
+        <div class="p-4">
+          <div class="text-accent text-xs font-semibold mb-1">Canon</div>
+          <div class="font-bold text-sm mb-1">EOS R50 Mirrorless</div>
+          <div class="text-white/40 text-xs mb-3">24.2MP · 4K Video · Wi-Fi</div>
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-accent font-black">KES 95,000</span>
+            <span class="text-white/30 text-xs line-through">KES 110,000</span>
+          </div>
+          <div class="text-yellow-400 text-xs">★★★★★ <span class="text-white/30">(203)</span></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- FLASH DEAL BANNER -->
+  <div class="mx-4 lg:mx-16 mb-20 bg-gradient-to-r from-accent/10 to-blue-900/20 border border-accent/20 rounded-3xl p-8 flex flex-wrap justify-between items-center gap-6">
+    <div>
+      <div class="text-accent text-xs font-semibold uppercase tracking-widest mb-2">⚡ Flash Deal</div>
+      <h3 class="text-2xl font-black mb-1">iPhone 15 Pro — KES <span class="text-accent">118,000</span></h3>
+      <p class="text-white/40 text-sm">Was KES 145,000 · 256GB · Titanium · Original Sealed</p>
+      <div class="flex gap-4 mt-4">
+        <div class="bg-dark border border-white/10 rounded-xl px-4 py-2 text-center">
+          <div class="text-accent font-black text-xl" id="fh">05</div>
+          <div class="text-white/30 text-xs">Hrs</div>
+        </div>
+        <div class="bg-dark border border-white/10 rounded-xl px-4 py-2 text-center">
+          <div class="text-accent font-black text-xl" id="fm">42</div>
+          <div class="text-white/30 text-xs">Min</div>
+        </div>
+        <div class="bg-dark border border-white/10 rounded-xl px-4 py-2 text-center">
+          <div class="text-accent font-black text-xl" id="fs">18</div>
+          <div class="text-white/30 text-xs">Sec</div>
+        </div>
+      </div>
+    </div>
+    <div class="text-center">
+      <div class="text-7xl mb-4">📱</div>
+      <button class="bg-accent text-black font-black px-8 py-3 rounded-full hover:opacity-90 transition text-sm">Grab This Deal</button>
+    </div>
+  </div>
+
+  <!-- WHY US -->
+  <section class="px-4 lg:px-16 pb-20 grid grid-cols-2 md:grid-cols-4 gap-5">
+    <div class="bg-card tech-border rounded-2xl p-5 text-center">
+      <div class="text-3xl mb-3">🚀</div>
+      <div class="font-bold text-sm mb-1">Same-Day Delivery</div>
+      <div class="text-white/40 text-xs">Within Nairobi CBD & suburbs</div>
+    </div>
+    <div class="bg-card tech-border rounded-2xl p-5 text-center">
+      <div class="text-3xl mb-3">✅</div>
+      <div class="font-bold text-sm mb-1">100% Genuine</div>
+      <div class="text-white/40 text-xs">All products are original & sealed</div>
+    </div>
+    <div class="bg-card tech-border rounded-2xl p-5 text-center">
+      <div class="text-3xl mb-3">🔧</div>
+      <div class="font-bold text-sm mb-1">Official Warranty</div>
+      <div class="text-white/40 text-xs">1 year manufacturer warranty</div>
+    </div>
+    <div class="bg-card tech-border rounded-2xl p-5 text-center">
+      <div class="text-3xl mb-3">💳</div>
+      <div class="font-bold text-sm mb-1">M-Pesa & Card</div>
+      <div class="text-white/40 text-xs">Secure & instant checkout</div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="px-4 lg:px-16 pb-20">
+    <div class="text-center mb-10">
+      <h2 class="text-2xl font-black mb-2">Customer Reviews</h2>
+      <p class="text-white/40 text-sm">Real buyers, real feedback</p>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <div class="bg-card tech-border rounded-2xl p-6">
+        <div class="text-yellow-400 text-sm mb-3">★★★★★</div>
+        <p class="text-white/50 text-sm leading-relaxed mb-4">"Ordered the Sony headphones on Tuesday morning, they arrived by 3pm. Absolutely genuine product. VoltX is now my go-to electronics shop!"</p>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-accent/20 text-accent font-black text-xs flex items-center justify-center">PK</div>
+          <div><div class="text-sm font-semibold">Peter Kamau</div><div class="text-white/30 text-xs">Nairobi</div></div>
+        </div>
+      </div>
+      <div class="bg-card tech-border rounded-2xl p-6">
+        <div class="text-yellow-400 text-sm mb-3">★★★★★</div>
+        <p class="text-white/50 text-sm leading-relaxed mb-4">"Got my HP laptop here and the price beat every other shop I checked. M-Pesa payment was instant and the receipt came via SMS. Super smooth."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-accent/20 text-accent font-black text-xs flex items-center justify-center">LW</div>
+          <div><div class="text-sm font-semibold">Linda Wanjiku</div><div class="text-white/30 text-xs">Thika</div></div>
+        </div>
+      </div>
+      <div class="bg-card tech-border rounded-2xl p-6">
+        <div class="text-yellow-400 text-sm mb-3">★★★★☆</div>
+        <p class="text-white/50 text-sm leading-relaxed mb-4">"The PS5 I ordered came with all accessories and a full year warranty card. Customer service answered my question within 10 minutes. Legit shop."</p>
+        <div class="flex items-center gap-3">
+          <div class="w-9 h-9 rounded-full bg-accent/20 text-accent font-black text-xs flex items-center justify-center">MO</div>
+          <div><div class="text-sm font-semibold">Mark Otieno</div><div class="text-white/30 text-xs">Kisumu</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <div class="mx-4 lg:mx-16 mb-20 bg-card tech-border rounded-3xl p-10 text-center">
+    <div class="text-3xl mb-3">📬</div>
+    <h2 class="text-2xl font-black mb-2">Get Deal Alerts</h2>
+    <p class="text-white/40 text-sm mb-6">Be the first to know when prices drop or new products land.</p>
+    <div class="flex max-w-md mx-auto gap-2">
+      <input class="flex-1 bg-surface border border-white/10 rounded-full px-5 py-3 text-sm text-white outline-none focus:border-accent transition placeholder-white/20" placeholder="your@email.com"/>
+      <button class="bg-accent text-black font-black px-6 py-3 rounded-full hover:opacity-90 transition text-sm whitespace-nowrap">Subscribe</button>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="bg-surface border-t border-white/5 px-4 lg:px-16 py-14">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-10">
+      <div class="md:col-span-2">
+        <div class="text-2xl font-black mb-3">Volt<span class="text-accent">X</span></div>
+        <p class="text-white/30 text-sm leading-relaxed max-w-sm">Kenya's trusted electronics store. Genuine products, unbeatable prices, and lightning-fast delivery — right to your door.</p>
+        <div class="flex gap-3 mt-5">
+          <div class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-xs hover:border-accent cursor-pointer transition text-white/40">f</div>
+          <div class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-xs hover:border-accent cursor-pointer transition text-white/40">ig</div>
+          <div class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-xs hover:border-accent cursor-pointer transition text-white/40">tw</div>
+          <div class="w-9 h-9 rounded-full border border-white/10 flex items-center justify-center text-xs hover:border-accent cursor-pointer transition text-white/40">yt</div>
+        </div>
+      </div>
+      <div>
+        <h4 class="text-xs font-bold uppercase tracking-widest text-white/30 mb-4">Shop</h4>
+        <div class="space-y-2 text-sm text-white/40">
+          <a href="#" class="block hover:text-accent transition">Smartphones</a>
+          <a href="#" class="block hover:text-accent transition">Laptops</a>
+          <a href="#" class="block hover:text-accent transition">Audio</a>
+          <a href="#" class="block hover:text-accent transition">Gaming</a>
+          <a href="#" class="block hover:text-accent transition">Smart Home</a>
+        </div>
+      </div>
+      <div>
+        <h4 class="text-xs font-bold uppercase tracking-widest text-white/30 mb-4">Support</h4>
+        <div class="space-y-2 text-sm text-white/40">
+          <p>📍 Tom Mboya St, Nairobi</p>
+          <p>📞 +254 700 456 789</p>
+          <p>✉️ support@voltx.co.ke</p>
+          <p>🕐 Mon–Sat: 8am – 7pm</p>
+        </div>
+      </div>
+    </div>
+    <div class="border-t border-white/5 pt-6 flex flex-wrap justify-between text-xs text-white/20 gap-3">
+      <p>© 2025 VoltX Electronics. All rights reserved.</p>
+      <p>🇰🇪 Serving Kenya since 2018</p>
+    </div>
+  </footer>
+
+  <div class="h-16"></div>
+
+  <!-- SHOWCASE BAR -->
+  <div class="fixed bottom-0 left-0 right-0 z-50 bg-accent text-black flex justify-between items-center px-6 py-3 flex-wrap gap-3">
+    <p class="text-sm font-bold">👀 Demo — <strong>Electronics Shop Template</strong></p>
+    <div class="flex gap-3">
+      <a href="/" class="bg-black/20 text-black font-semibold text-sm px-4 py-2 rounded-full">← Back</a>
+      <a href="mailto:zurich@email.com?subject=I want the Electronics Shop Website" class="bg-black text-accent font-black text-sm px-5 py-2 rounded-full">Order This Website</a>
+    </div>
+  </div>
+
+  <script>
+    let t = (5*3600)+(42*60)+18;
+    setInterval(()=>{
+      t--; if(t<0) t=0;
+      document.getElementById('fh').textContent=String(Math.floor(t/3600)).padStart(2,'0');
+      document.getElementById('fm').textContent=String(Math.floor((t%3600)/60)).padStart(2,'0');
+      document.getElementById('fs').textContent=String(t%60).padStart(2,'0');
+    },1000);
+  </script>
+</body>
+</html>

@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ShopBlack — Premium Ecommerce</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0a0a0a;
+      --surface: #111111;
+      --card: #1a1a1a;
+      --border: #252525;
+      --accent: #f5a623;
+      --accent2: #e84393;
+      --text: #f0f0f0;
+      --muted: #777;
+      --radius: 14px;
+    }
+
+    body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; line-height: 1.6; }
+
+    /* ── PROMO BAR ── */
+    .promo-bar {
+      background: var(--accent);
+      color: #000;
+      text-align: center;
+      padding: 0.5rem;
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+    }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 1.2rem 5%; border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; background: rgba(10,10,10,0.96);
+      backdrop-filter: blur(10px); z-index: 100;
+    }
+    .brand { font-size: 1.6rem; font-weight: 800; color: var(--text); text-decoration: none; letter-spacing: -0.03em; }
+    .brand span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
+    .nav-links a:hover { color: var(--text); }
+    .nav-right { display: flex; gap: 1rem; align-items: center; }
+    .nav-icon { background: var(--card); border: 1px solid var(--border); color: var(--text);
+      padding: 0.5rem 1rem; border-radius: 50px; font-size: 0.85rem; cursor: pointer;
+      text-decoration: none; transition: all 0.2s; }
+    .nav-icon:hover { border-color: var(--accent); color: var(--accent); }
+    .cart-btn { background: var(--accent); color: #000; font-weight: 700; }
+    .cart-btn:hover { opacity: 0.85; color: #000; border-color: var(--accent); }
+
+    /* ── HERO ── */
+    .hero {
+      display: grid; grid-template-columns: 1fr 1fr; align-items: center;
+      min-height: 88vh; padding: 4rem 5%;
+      background: radial-gradient(ellipse 80% 60% at 70% 50%, #1a0f00 0%, var(--bg) 70%);
+      gap: 3rem;
+    }
+    .hero-text h1 {
+      font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 800;
+      line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 1.5rem;
+    }
+    .hero-text h1 span { color: var(--accent); display: block; }
+    .hero-text p { color: var(--muted); font-size: 1.05rem; max-width: 420px; margin-bottom: 2.5rem; }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-accent { background: var(--accent); color: #000; padding: 0.85rem 2.2rem;
+      border-radius: 50px; font-weight: 700; text-decoration: none; font-size: 0.95rem;
+      transition: opacity 0.2s; display: inline-block; }
+    .btn-accent:hover { opacity: 0.85; }
+    .btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--text);
+      padding: 0.85rem 2.2rem; border-radius: 50px; font-weight: 600; text-decoration: none;
+      font-size: 0.95rem; transition: all 0.2s; display: inline-block; }
+    .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+
+    .hero-image {
+      position: relative; display: flex; justify-content: center; align-items: center;
+    }
+    .hero-mockup {
+      width: 100%; max-width: 480px; aspect-ratio: 4/3; background: var(--card);
+      border: 1px solid var(--border); border-radius: 20px; overflow: hidden;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 2px; padding: 2px;
+    }
+    .mock-img {
+      background: var(--border);
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2.5rem;
+    }
+    .mock-img:first-child { grid-column: span 2; font-size: 3.5rem; }
+    .hero-badge {
+      position: absolute; bottom: 20px; left: -10px;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 14px; padding: 0.8rem 1.2rem;
+      display: flex; align-items: center; gap: 0.8rem;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+    }
+    .badge-icon { font-size: 1.8rem; }
+    .badge-text { font-size: 0.78rem; color: var(--muted); }
+    .badge-text strong { color: var(--text); display: block; font-size: 0.95rem; }
+
+    /* ── TRUST BAR ── */
+    .trust-bar {
+      display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;
+      padding: 2rem 5%; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+      background: var(--surface);
+    }
+    .trust-item { display: flex; align-items: center; gap: 0.6rem; font-size: 0.88rem; color: var(--muted); }
+    .trust-item span { font-size: 1.2rem; }
+
+    /* ── SECTION HEADER ── */
+    .section-header { text-align: center; padding: 4rem 5% 2rem; }
+    .section-header h2 { font-size: 2rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .section-header p { color: var(--muted); max-width: 450px; margin: 0 auto; }
+
+    /* ── CATEGORIES ── */
+    .categories { display: flex; gap: 1rem; overflow-x: auto; padding: 1rem 5% 3rem;
+      scrollbar-width: none; }
+    .categories::-webkit-scrollbar { display: none; }
+    .cat-card {
+      flex: 0 0 160px; background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.5rem 1rem; text-align: center;
+      text-decoration: none; color: var(--text); transition: all 0.2s; cursor: pointer;
+    }
+    .cat-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .cat-icon { font-size: 2rem; margin-bottom: 0.6rem; }
+    .cat-name { font-size: 0.85rem; font-weight: 600; }
+    .cat-count { font-size: 0.75rem; color: var(--muted); }
+
+    /* ── PRODUCTS ── */
+    .products-section { padding: 0 5% 5rem; }
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.2rem; }
+
+    .product-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+      overflow: hidden; transition: all 0.25s; cursor: pointer;
+    }
+    .product-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,0.4); border-color: var(--border); }
+
+    .product-img {
+      width: 100%; aspect-ratio: 1; background: var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 4rem; position: relative; overflow: hidden;
+    }
+    .product-img .product-bg {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, #1a1a1a, #252525);
+    }
+    .product-emoji { position: relative; z-index: 1; }
+
+    .product-badge-new {
+      position: absolute; top: 12px; left: 12px; z-index: 2;
+      background: var(--accent2); color: #fff; font-size: 0.68rem;
+      font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 50px;
+      text-transform: uppercase;
+    }
+    .product-badge-sale {
+      position: absolute; top: 12px; left: 12px; z-index: 2;
+      background: #22c55e; color: #000; font-size: 0.68rem;
+      font-weight: 700; padding: 0.2rem 0.6rem; border-radius: 50px;
+    }
+    .product-wishlist {
+      position: absolute; top: 12px; right: 12px; z-index: 2;
+      background: rgba(0,0,0,0.5); border-radius: 50%; width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center; font-size: 0.9rem;
+    }
+    .add-to-cart-hover {
+      position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+      background: var(--accent); color: #000; text-align: center;
+      padding: 0.7rem; font-weight: 700; font-size: 0.85rem;
+      transform: translateY(100%); transition: transform 0.25s;
+    }
+    .product-card:hover .add-to-cart-hover { transform: translateY(0); }
+
+    .product-body { padding: 1rem; }
+    .product-category { font-size: 0.72rem; color: var(--accent); text-transform: uppercase;
+      font-weight: 600; letter-spacing: 0.05em; }
+    .product-name { font-size: 0.95rem; font-weight: 600; margin: 0.3rem 0; }
+    .product-rating { color: var(--accent); font-size: 0.78rem; margin-bottom: 0.5rem; }
+    .product-price { display: flex; align-items: center; gap: 0.7rem; }
+    .price-main { font-size: 1.1rem; font-weight: 700; color: var(--text); }
+    .price-old { font-size: 0.85rem; color: var(--muted); text-decoration: line-through; }
+
+    /* ── BANNER ── */
+    .mid-banner {
+      margin: 1rem 5% 4rem;
+      background: linear-gradient(135deg, #1a0a00, #2d1500);
+      border: 1px solid #3d2000; border-radius: 20px;
+      padding: 3rem; display: flex; justify-content: space-between; align-items: center;
+      gap: 2rem; flex-wrap: wrap;
+    }
+    .mid-banner h2 { font-size: 1.8rem; font-weight: 800; }
+    .mid-banner h2 span { color: var(--accent); }
+    .mid-banner p { color: var(--muted); margin-top: 0.5rem; }
+    .countdown { display: flex; gap: 1rem; margin-top: 1.5rem; }
+    .count-box { background: rgba(0,0,0,0.4); border: 1px solid var(--border);
+      border-radius: 10px; padding: 0.8rem 1.2rem; text-align: center; min-width: 64px; }
+    .count-num { font-size: 1.6rem; font-weight: 800; color: var(--accent); display: block; }
+    .count-label { font-size: 0.65rem; color: var(--muted); text-transform: uppercase; }
+
+    /* ── FEATURES ── */
+    .features { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem; padding: 4rem 5%; background: var(--surface);
+      border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+    .feature-card { text-align: center; padding: 1.5rem; }
+    .feature-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+    .feature-card h4 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .feature-card p { font-size: 0.82rem; color: var(--muted); }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials { padding: 5rem 5%; }
+    .testi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2rem; }
+    .testi-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.5rem; }
+    .testi-stars { color: var(--accent); font-size: 0.9rem; margin-bottom: 0.8rem; }
+    .testi-text { font-size: 0.9rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.2rem; }
+    .testi-author { display: flex; align-items: center; gap: 0.8rem; }
+    .testi-avatar { width: 38px; height: 38px; border-radius: 50%; background: var(--border);
+      display: flex; align-items: center; justify-content: center; font-size: 1.1rem; }
+    .testi-name { font-size: 0.88rem; font-weight: 600; }
+    .testi-role { font-size: 0.75rem; color: var(--muted); }
+
+    /* ── NEWSLETTER ── */
+    .newsletter {
+      margin: 0 5% 5rem; background: var(--card); border: 1px solid var(--border);
+      border-radius: 20px; padding: 3rem; text-align: center;
+    }
+    .newsletter h2 { font-size: 1.7rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .newsletter p { color: var(--muted); margin-bottom: 2rem; }
+    .newsletter-form { display: flex; max-width: 440px; margin: 0 auto; gap: 0.5rem; }
+    .newsletter-form input {
+      flex: 1; background: var(--surface); border: 1px solid var(--border);
+      border-radius: 50px; padding: 0.75rem 1.2rem; color: var(--text);
+      font-family: inherit; font-size: 0.9rem; outline: none;
+    }
+    .newsletter-form input::placeholder { color: var(--muted); }
+    .newsletter-form input:focus { border-color: var(--accent); }
+    .newsletter-form button {
+      background: var(--accent); color: #000; border: none; border-radius: 50px;
+      padding: 0.75rem 1.5rem; font-weight: 700; cursor: pointer; font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    /* ── FOOTER ── */
+    .footer { background: var(--surface); border-top: 1px solid var(--border); padding: 4rem 5% 2rem; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+    .footer-brand { font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; }
+    .footer-brand span { color: var(--accent); }
+    .footer-desc { color: var(--muted); font-size: 0.88rem; line-height: 1.7; margin-bottom: 1.5rem; }
+    .footer-social { display: flex; gap: 0.6rem; }
+    .social-btn { background: var(--card); border: 1px solid var(--border); width: 36px; height: 36px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 0.9rem; cursor: pointer; transition: all 0.2s; }
+    .social-btn:hover { border-color: var(--accent); }
+    .footer-col h4 { font-size: 0.85rem; font-weight: 600; text-transform: uppercase;
+      letter-spacing: 0.08em; margin-bottom: 1rem; color: var(--text); }
+    .footer-col a { display: block; color: var(--muted); text-decoration: none; font-size: 0.87rem;
+      margin-bottom: 0.6rem; transition: color 0.2s; }
+    .footer-col a:hover { color: var(--text); }
+    .footer-bottom { border-top: 1px solid var(--border); padding-top: 1.5rem;
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 0.82rem; color: var(--muted); flex-wrap: wrap; gap: 1rem; }
+
+    /* ── BACK TO SHOWCASE ── */
+    .showcase-bar {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 999;
+      background: var(--accent); color: #000;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 0.9rem 5%; gap: 1rem; flex-wrap: wrap;
+    }
+    .showcase-bar p { font-size: 0.88rem; font-weight: 600; }
+    .showcase-bar-actions { display: flex; gap: 0.8rem; }
+    .sb-btn-back { background: rgba(0,0,0,0.15); color: #000; padding: 0.5rem 1.2rem;
+      border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 0.85rem; }
+    .sb-btn-order { background: #000; color: var(--accent); padding: 0.5rem 1.4rem;
+      border-radius: 50px; text-decoration: none; font-weight: 700; font-size: 0.85rem; }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .hero { grid-template-columns: 1fr; min-height: auto; padding-top: 3rem; }
+      .hero-image { display: none; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .trust-bar { gap: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- PROMO BAR -->
+<div class="promo-bar">🔥 Flash Sale — Up to 40% OFF this weekend only! Use code: SAVE40</div>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="#" class="brand">Shop<span>Black</span></a>
+  <div class="nav-links">
+    <a href="#">Home</a>
+    <a href="#">Shop</a>
+    <a href="#">Collections</a>
+    <a href="#">Deals</a>
+    <a href="#">About</a>
+  </div>
+  <div class="nav-right">
+    <a href="#" class="nav-icon">🔍</a>
+    <a href="#" class="nav-icon">♡</a>
+    <a href="#" class="nav-icon cart-btn">🛒 Cart (3)</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <h1>Premium Products <span>Delivered Fast</span></h1>
+    <p>Shop the latest collections — electronics, fashion, home & more. Quality you can trust, prices you'll love.</p>
+    <div class="hero-actions">
+      <a href="#" class="btn-accent">Shop Now →</a>
+      <a href="#" class="btn-ghost">View Deals</a>
+    </div>
+  </div>
+  <div class="hero-image">
+    <div class="hero-mockup">
+      <div class="mock-img">🛍️</div>
+      <div class="mock-img">👟</div>
+      <div class="mock-img">📱</div>
+    </div>
+    <div class="hero-badge">
+      <div class="badge-icon">⭐</div>
+      <div class="badge-text">
+        <strong>4.9 / 5.0</strong>
+        Over 2,400 happy customers
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST BAR -->
+<div class="trust-bar">
+  <div class="trust-item"><span>🚚</span> Free delivery over KES 2,000</div>
+  <div class="trust-item"><span>🔄</span> 30-day easy returns</div>
+  <div class="trust-item"><span>🔒</span> Secure M-Pesa & card payment</div>
+  <div class="trust-item"><span>📞</span> 24/7 customer support</div>
+</div>
+
+<!-- CATEGORIES -->
+<div class="section-header">
+  <h2>Shop by Category</h2>
+  <p>Find exactly what you're looking for</p>
+</div>
+<div class="categories">
+  <div class="cat-card"><div class="cat-icon">📱</div><div class="cat-name">Electronics</div><div class="cat-count">240 items</div></div>
+  <div class="cat-card"><div class="cat-icon">👗</div><div class="cat-name">Fashion</div><div class="cat-count">530 items</div></div>
+  <div class="cat-card"><div class="cat-icon">🏠</div><div class="cat-name">Home & Living</div><div class="cat-count">180 items</div></div>
+  <div class="cat-card"><div class="cat-icon">💄</div><div class="cat-name">Beauty</div><div class="cat-count">320 items</div></div>
+  <div class="cat-card"><div class="cat-icon">⚽</div><div class="cat-name">Sports</div><div class="cat-count">150 items</div></div>
+  <div class="cat-card"><div class="cat-icon">📚</div><div class="cat-name">Books</div><div class="cat-count">410 items</div></div>
+  <div class="cat-card"><div class="cat-icon">🎮</div><div class="cat-name">Gaming</div><div class="cat-count">95 items</div></div>
+</div>
+
+<!-- FEATURED PRODUCTS -->
+<div class="section-header">
+  <h2>Featured Products</h2>
+  <p>Handpicked for you — top quality, best prices</p>
+</div>
+<section class="products-section">
+  <div class="products-grid">
+
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-bg"></div>
+        <span class="product-emoji">📱</span>
+        <div class="product-badge-new">New</div>
+        <div class="product-wishlist">♡</div>
+        <div class="add-to-cart-hover">+ Add to Cart</div>
+      </div>
+      <div class="product-body">
+        <div class="product-category">Electronics</div>
+        <div class="product-name">Smartphone Pro Max 256GB</div>
+        <div class="product-rating">★★★★★ (128)</div>
+        <div class="product-price">
+          <span class="price-main">KES 45,000</span>
+          <span class="price-old">KES 55,000</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-bg"></div>
+        <span class="product-emoji">👟</span>
+        <div class="product-badge-sale">-20%</div>
+        <div class="product-wishlist">♡</div>
+        <div class="add-to-cart-hover">+ Add to Cart</div>
+      </div>
+      <div class="product-body">
+        <div class="product-category">Fashion</div>
+        <div class="product-name">Urban Runner Sneakers</div>
+        <div class="product-rating">★★★★☆ (84)</div>
+        <div class="product-price">
+          <span class="price-main">KES 6,400</span>
+          <span class="price-old">KES 8,000</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-bg"></div>
+        <span class="product-emoji">🎧</span>
+        <div class="product-wishlist">♡</div>
+        <div class="add-to-cart-hover">+ Add to Cart</div>
+      </div>
+      <div class="product-body">
+        <div class="product-category">Electronics</div>
+        <div class="product-name">Wireless Noise-Cancel Headphones</div>
+        <div class="product-rating">★★★★★ (210)</div>
+        <div class="product-price">
+          <span class="price-main">KES 12,500</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-bg"></div>
+        <span class="product-emoji">💺</span>
+        <div class="product-badge-new">New</div>
+        <div class="product-wishlist">♡</div>
+        <div class="add-to-cart-hover">+ Add to Cart</div>
+      </div>
+      <div class="product-body">
+        <div class="product-category">Home & Living</div>
+        <div class="product-name">Ergonomic Office Chair</div>
+        <div class="product-rating">★★★★☆ (67)</div>
+        <div class="product-price">
+          <span class="price-main">KES 18,000</span>
+          <span class="price-old">KES 22,000</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-bg"></div>
+        <span class="product-emoji">💄</span>
+        <div class="product-badge-sale">-15%</div>
+        <div class="product-wishlist">♡</div>
+        <div class="add-to-cart-hover">+ Add to Cart</div>
+      </div>
+      <div class="product-body">
+        <div class="product-category">Beauty</div>
+        <div class="product-name">Luxury Skincare Bundle</div>
+        <div class="product-rating">★★★★★ (340)</div>
+        <div class="product-price">
+          <span class="price-main">KES 3,400</span>
+          <span class="price-old">KES 4,000</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="product-card">
+      <div class="product-img">
+        <div class="product-bg"></div>
+        <span class="product-emoji">⌚</span>
+        <div class="product-wishlist">♡</div>
+        <div class="add-to-cart-hover">+ Add to Cart</div>
+      </div>
+      <div class="product-body">
+        <div class="product-category">Fashion</div>
+        <div class="product-name">Smart Fitness Watch</div>
+        <div class="product-rating">★★★★★ (190)</div>
+        <div class="product-price">
+          <span class="price-main">KES 9,500</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FLASH SALE BANNER -->
+<div class="mid-banner">
+  <div>
+    <h2>Flash Sale <span>Ends Soon</span></h2>
+    <p>Don't miss out — these deals won't last!</p>
+    <div class="countdown">
+      <div class="count-box"><span class="count-num" id="hours">08</span><span class="count-label">Hours</span></div>
+      <div class="count-box"><span class="count-num" id="mins">34</span><span class="count-label">Mins</span></div>
+      <div class="count-box"><span class="count-num" id="secs">12</span><span class="count-label">Secs</span></div>
+    </div>
+  </div>
+  <a href="#" class="btn-accent" style="font-size:1rem; padding: 1rem 2.5rem;">Grab the Deals →</a>
+</div>
+
+<!-- FEATURES -->
+<section class="features">
+  <div class="feature-card"><div class="feature-icon">🚀</div><h4>Fast Delivery</h4><p>Same-day delivery within Nairobi. Next-day countrywide.</p></div>
+  <div class="feature-card"><div class="feature-icon">🔒</div><h4>Secure Payments</h4><p>M-Pesa, Visa, Mastercard — all payments 100% encrypted.</p></div>
+  <div class="feature-card"><div class="feature-icon">🔄</div><h4>Easy Returns</h4><p>Not happy? Return it within 30 days, no questions asked.</p></div>
+  <div class="feature-card"><div class="feature-icon">🎁</div><h4>Gift Wrapping</h4><p>Add a personal message and gift wrap at checkout.</p></div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials">
+  <div class="section-header" style="padding-top:0">
+    <h2>What Customers Say</h2>
+    <p>Real reviews from real people</p>
+  </div>
+  <div class="testi-grid" style="margin-top:2rem">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Ordered on Friday, arrived Saturday morning. Product quality is exactly as described. Will definitely shop here again!</p>
+      <div class="testi-author"><div class="testi-avatar">👩</div><div><div class="testi-name">Amina Odhiambo</div><div class="testi-role">Nairobi</div></div></div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">Best online shop I've used in Kenya. The M-Pesa checkout is smooth and I love the order tracking feature.</p>
+      <div class="testi-author"><div class="testi-avatar">👨</div><div><div class="testi-name">Brian Kipchoge</div><div class="testi-role">Eldoret</div></div></div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★☆</div>
+      <p class="testi-text">Great selection and fair prices. Customer support responded within minutes when I had a question. Highly recommended.</p>
+      <div class="testi-author"><div class="testi-avatar">👩</div><div><div class="testi-name">Fatuma Hassan</div><div class="testi-role">Mombasa</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<div class="newsletter">
+  <h2>Get Exclusive Deals</h2>
+  <p>Subscribe and be the first to know about flash sales, new arrivals and special offers.</p>
+  <div class="newsletter-form">
+    <input type="email" placeholder="Enter your email address..." />
+    <button>Subscribe</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-grid">
+    <div>
+      <div class="footer-brand">Shop<span>Black</span></div>
+      <p class="footer-desc">Kenya's favourite online shop. Quality products, fast delivery, and unbeatable prices — right to your door.</p>
+      <div class="footer-social">
+        <div class="social-btn">f</div>
+        <div class="social-btn">in</div>
+        <div class="social-btn">tw</div>
+        <div class="social-btn">ig</div>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <a href="#">Electronics</a>
+      <a href="#">Fashion</a>
+      <a href="#">Home & Living</a>
+      <a href="#">Beauty</a>
+      <a href="#">Sports</a>
+    </div>
+    <div class="footer-col">
+      <h4>Support</h4>
+      <a href="#">Track Order</a>
+      <a href="#">Returns</a>
+      <a href="#">FAQ</a>
+      <a href="#">Contact Us</a>
+      <a href="#">Shipping Info</a>
+    </div>
+    <div class="footer-col">
+      <h4>Company</h4>
+      <a href="#">About Us</a>
+      <a href="#">Blog</a>
+      <a href="#">Careers</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2025 ShopBlack. All rights reserved.</p>
+    <p>🇰🇪 Made for Kenya — Proudly local</p>
+  </div>
+</footer>
+
+<!-- BOTTOM PADDING for showcase bar -->
+<div style="height: 60px;"></div>
+
+<!-- SHOWCASE BAR -->
+<div class="showcase-bar">
+  <p>👀 You are viewing a demo — <strong>Ecommerce Shop Template</strong></p>
+  <div class="showcase-bar-actions">
+    <a href="/" class="sb-btn-back">← Back</a>
+    <a href="mailto:zurich@email.com?subject=I want the Ecommerce Shop Website" class="sb-btn-order">Order This Website</a>
+  </div>
+</div>
+
+<!-- COUNTDOWN SCRIPT -->
+<script>
+  let total = (8 * 3600) + (34 * 60) + 12;
+  setInterval(() => {
+    total--;
+    if (total < 0) total = 0;
+    const h = Math.floor(total / 3600);
+    const m = Math.floor((total % 3600) / 60);
+    const s = total % 60;
+    document.getElementById('hours').textContent = String(h).padStart(2,'0');
+    document.getElementById('mins').textContent  = String(m).padStart(2,'0');
+    document.getElementById('secs').textContent  = String(s).padStart(2,'0');
+  }, 1000);
+</script>
+
+</body>
+</html>
