@@ -27,3 +27,4 @@ Thumbs.db
 
 # Playwright (installed at runtime)
 playwright/
+.env
