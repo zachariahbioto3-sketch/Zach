@@ -76,26 +76,30 @@ CSRF_TRUSTED_ORIGINS = [
     'http://127.0.0.1:8000',
 ]
 
-import dj_database_url
 import os
+import dj_database_url
 
-# Production overrides
+SECRET_KEY = os.environ.get('SECRET_KEY', SECRET_KEY)
+
 if os.environ.get('RENDER'):
     DEBUG = False
     ALLOWED_HOSTS = ['.onrender.com', 'localhost']
-
-    DATABASES = {
-        'default': dj_database_url.config(
-            default=os.environ.get('DATABASE_URL'),
-            conn_max_age=600
-        )
-    }
-
-    CSRF_TRUSTED_ORIGINS = [
-        'https://*.onrender.com',
-    ]
-
-    STATIC_ROOT = BASE_DIR / 'staticfiles'
+    CSRF_TRUSTED_ORIGINS = ['https://*.onrender.com']
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-SECRET_KEY = os.environ.get('SECRET_KEY', SECRET_KEY)
+    DATABASE_URL = os.environ.get('DATABASE_URL')
+    if DATABASE_URL:
+        DATABASES = {
+            'default': dj_database_url.config(
+                default=DATABASE_URL,
+                conn_max_age=600,
+                ssl_require=True
+            )
+        }
+    else:
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': BASE_DIR / 'db.sqlite3',
+            }
+        }
